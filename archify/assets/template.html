@@ -11748,6 +11748,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var wheelPanTimestamp = 0;
       var wheelPanTarget = null;
       var wheelPanInputEnded = false;
+      var deferInterruptApply = false;
       var suppressContextMenuUntil = 0;
       var lastControlKey = '';
       var interactionMetrics = { offsetLeft: 0, offsetTop: 0, width: 1, height: 1 };
@@ -11758,13 +11759,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       grid.setAttribute('aria-hidden', 'true');
       container.insertBefore(grid, svg);
 
+      function clampCameraCoordinate(value) {
+        return Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(value) || 0));
+      }
       function boundCamera() {
         state.scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, Number(state.scale) || 1));
-        state.x = Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(state.x) || 0));
-        state.y = Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(state.y) || 0));
+        state.x = clampCameraCoordinate(state.x);
+        state.y = clampCameraCoordinate(state.y);
       }
       function mobileScrollMode() {
         return window.innerWidth <= 720 && container.hasAttribute('data-wide-diagram');
+      }
+      function syncPointerGesturePolicy() {
+        container.style.touchAction = mobileScrollMode() ? 'pan-x pan-y' : 'none';
       }
       function reducedMotion() {
         return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -11898,11 +11905,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         var offsetLeft = options.interactive === true ? interactionMetrics.offsetLeft : (svg.offsetLeft || 0);
         var offsetTop = options.interactive === true ? interactionMetrics.offsetTop : (svg.offsetTop || 0);
         syncGrid(offsetLeft, offsetTop, options.gridPositionOnly === true);
-        if (options.cameraOnly === true) return;
-        if (options.interactive === true) {
-          if (clipFrame) cancelAnimationFrame(clipFrame);
+        if (options.interactive === true && clipFrame) {
+          cancelAnimationFrame(clipFrame);
           clipFrame = 0;
-        } else {
+        }
+        if (options.cameraOnly === true) return;
+        if (options.interactive !== true) {
           syncViewportClip();
         }
         renderControls();
@@ -12118,14 +12126,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         stopCameraMotion(reason || 'manual', false);
         state = rendered;
         state.mode = 'manual';
-        apply();
-        renderControls();
+        if (!deferInterruptApply) apply();
         if (Archify.guidedViews && Archify.guidedViews.isPlaying && Archify.guidedViews.isPlaying()) {
           Archify.guidedViews.pause();
         }
         if (Archify.routeProbe && Archify.routeProbe.isJourneyPlaying && Archify.routeProbe.isJourneyPlaying()) {
           Archify.routeProbe.pauseJourney({ preserveElapsed: true, reason: reason || 'manual' });
         }
+      }
+      function interruptCameraWithoutRender(reason) {
+        deferInterruptApply = true;
+        try { interruptCamera(reason); } finally { deferInterruptApply = false; }
       }
       function zoomAtLocal(next, anchorX, anchorY, options) {
         options = options || {};
@@ -12379,6 +12390,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         container.style.setProperty('--archify-scroll-x', container.scrollLeft + 'px');
       }
       function syncNavigationDock() {
+        syncPointerGesturePolicy();
         if (!navigation) return;
         var rect = container.getBoundingClientRect();
         var margin = window.innerWidth <= 720 ? 8 : 16;
@@ -12436,7 +12448,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       inBtn.addEventListener('click', function () { zoom(state.scale + 0.25); });
       outBtn.addEventListener('click', function () { zoom(state.scale - 0.25); });
       resetBtn.addEventListener('click', reset);
-      if (!container.hasAttribute('tabindex')) container.setAttribute('tabindex', '-1');
+      if (!container.hasAttribute('tabindex')) container.setAttribute('tabindex', '0');
+      if (!container.hasAttribute('role')) container.setAttribute('role', 'region');
+      if (!container.hasAttribute('aria-label')) container.setAttribute('aria-label', viewerText('viewer.camera.surface'));
+      syncPointerGesturePolicy();
       container.addEventListener('pointerdown', function (event) {
         var directPointerPan = (event.pointerType === 'touch' || event.pointerType === 'pen') && event.button === 0;
         if (mobileScrollMode() || (event.button !== 2 && !directPointerPan) || cameraControlTarget(event.target)) return;
@@ -12473,7 +12488,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         if (startingWheel) {
           if (container.classList.contains('is-wheel-moving')) finishWheelGesture(true);
           stopKeyboardPan();
-          interruptCamera('wheel');
+          interruptCameraWithoutRender('wheel');
           var rect = captureInteractionGeometry();
           wheelGeometry = {
             left: rect.left + interactionMetrics.offsetLeft,
@@ -12494,8 +12509,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           wheelTimer = setTimeout(function () { finishWheelGesture(false); }, 120);
         } else {
           var deltaFactor = event.deltaMode === 1 ? 16 : (event.deltaMode === 2 ? container.clientHeight : 1);
-          wheelPanTarget.x -= event.deltaX * deltaFactor;
-          wheelPanTarget.y -= event.deltaY * deltaFactor;
+          wheelPanTarget.x = clampCameraCoordinate(wheelPanTarget.x - event.deltaX * deltaFactor);
+          wheelPanTarget.y = clampCameraCoordinate(wheelPanTarget.y - event.deltaY * deltaFactor);
           wheelPanInputEnded = false;
           scheduleWheelPan();
           wheelTimer = setTimeout(function () {

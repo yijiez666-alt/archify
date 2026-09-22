@@ -530,6 +530,7 @@ const MESSAGE_PAIRS = {
   'viewer.nav.camera': ['{hint}. Reset diagram view', '{hint}。重置图表视图', '{hint}. Restablecer la vista del diagrama'],
   'viewer.nav.camera.title': ['{semantic}{hint} · reset view (0)', '{semantic}{hint} · 重置视图（0）', '{semantic}{hint} · restablecer vista (0)'],
   'viewer.nav.camera.semantic': ['Semantic camera active · ', '语义相机已启用 · ', 'Cámara semántica activa · '],
+  'viewer.camera.surface': ['Interactive diagram canvas. Use arrow keys to pan.', '交互式图表画布。使用方向键平移。', 'Lienzo de diagrama interactivo. Usa las flechas para desplazarte.'],
   'viewer.nav.level.map': ['MAP', '概览', 'MAPA'],
   'viewer.nav.level.read': ['READ', '阅读', 'LEER'],
   'viewer.nav.level.full': ['FULL', '完整', 'COMPLETO'],

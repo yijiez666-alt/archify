@@ -747,8 +747,9 @@ delegates to `reveal` or returns false. Manual Reset interrupts callers, whereas
 `reset({ automatic: true })` stops camera motion without the manual takeover path.
 
 Desktop Camera is an unbounded interaction surface. Holding the right mouse
-button pans from any diagram content outside Viewer controls, arrow keys pan while
-the diagram intersects the viewport, and ordinary wheel input pans vertically
+button pans from any diagram content outside Viewer controls, and touch or pen
+dragging pans when native mobile scrolling is not active. Arrow keys pan while the
+diagram container is focused and intersects the viewport. Ordinary wheel input pans vertically
 (and horizontally when the device supplies `deltaX`). Ctrl/Cmd-wheel and trackpad
 pinch zoom around the pointer. Scale is bounded to 25%–400%, while translation has
 only a large numeric safety bound. `fit()` uses the same authored overview as Reset.
@@ -765,9 +766,10 @@ keys. The animation rate follows the browser and display refresh rate without a
 fixed 60fps cap.
 
 High-frequency pointer and wheel input coalesces into at most one interactive
-render per animation frame. Interactive renders update the camera and controls
-while the container supplies the live clipping boundary; the grid, final SVG
-clipping, Radar, and Chrome Layout synchronize once the gesture settles. Container
+render per animation frame. `apply({ interactive: true, cameraOnly: true, ... })`
+updates only the SVG camera transform and canvas grid, cancels any pending clip
+frame, and returns before `renderControls()`. Controls, final SVG clipping, Radar,
+and Chrome Layout synchronize once the gesture settles. Container
 resizing and page scrolling update viewport docking separately, so camera movement
 does not force a container layout read on every frame.
 
@@ -776,8 +778,6 @@ and approaches it with elapsed-time interpolation. Discrete mouse-wheel ticks an
 continuous trackpad input therefore share the same frame-driven motion path.
 Modifier-wheel zoom remains pointer-anchored and directly responsive.
 
-Interactive frames update only the SVG camera transform and the lightweight dotted
-canvas grid. Clipping, Radar, control state, and Chrome Layout settle afterward.
 The canvas grid uses dots at minor and major intervals; it does not draw solid lines.
 
 `worldViewport()` reports the unbounded visible rectangle in authored logical

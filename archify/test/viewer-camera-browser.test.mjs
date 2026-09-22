@@ -153,6 +153,12 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
         buttons: type === 'pointerup' || type === 'pointercancel' ? 0 : (button === 2 ? 2 : 1), clientX: x, clientY: y
       });
       const before = Archify.view.state();
+      const surface = {
+        tabIndex: c.tabIndex,
+        role: c.getAttribute('role'),
+        label: c.getAttribute('aria-label'),
+        touchAction: getComputedStyle(c).touchAction
+      };
       c.querySelector('.diagram-nav').dispatchEvent(pointer('pointerdown', 500, 400, 2));
       c.dispatchEvent(pointer('pointermove', 450, 350, 2));
       const controlExcluded = JSON.stringify(before) === JSON.stringify(Archify.view.state());
@@ -175,13 +181,18 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
       c.dispatchEvent(pointer('pointercancel', 300, 300, 0, 'pen', 33));
       const contextMenu = new MouseEvent('contextmenu', { bubbles: true, cancelable: true, button: 2 });
       c.dispatchEvent(contextMenu);
-      return { step: before.scale, controlExcluded, leftExcluded, dragged, cancelled,
+      return { step: before.scale, surface, controlExcluded, leftExcluded, dragged, cancelled,
         moved: ended.x === -50 && ended.y === -50, contextSuppressed: contextMenu.defaultPrevented,
         touched: touched.x === ended.x + 30 && touched.y === ended.y + 20, penStarted,
         unchanged: JSON.stringify(touched) === JSON.stringify(Archify.view.state()),
         geometryUnchanged: beforeGeometry === JSON.stringify(geometry()) };
     })()`);
-    assert.deepEqual(result, { step: 1, controlExcluded: true, leftExcluded: true, dragged: true, cancelled: true,
+    assert.deepEqual(result, { step: 1, surface: {
+      tabIndex: 0,
+      role: 'region',
+      label: 'Interactive diagram canvas. Use arrow keys to pan.',
+      touchAction: 'none',
+    }, controlExcluded: true, leftExcluded: true, dragged: true, cancelled: true,
       moved: true, contextSuppressed: true, touched: true, penStarted: true,
       unchanged: true, geometryUnchanged: true });
     await stable();
@@ -231,8 +242,6 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
       const afterWheelDispatch = Archify.view.state();
       const wheelDeferred = afterWheelDispatch.scale === beforeWheel.scale &&
         afterWheelDispatch.x === beforeWheel.x && afterWheelDispatch.y === beforeWheel.y;
-      radarSyncs = 0;
-      layoutSyncs = 0;
       await cameraWait(() => Archify.view.state().y < 0 && Archify.view.state().y > -55);
       const interpolatedPan = Archify.view.state();
       const deferredAuxiliarySync = radarSyncs === 0 && layoutSyncs === 0;
@@ -271,6 +280,12 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
       Archify.radar.open();
       await cameraWait(() => document.querySelector('.overview-map-viewport')?.hasAttribute('data-outside'));
       const marker = document.querySelector('.overview-map-viewport');
+      Archify.view.fit();
+      const extremeWheel = new WheelEvent('wheel', { bubbles: true, cancelable: true,
+        deltaX: 2000000, deltaY: 2000000, clientX, clientY });
+      c.dispatchEvent(extremeWheel);
+      await cameraWait(() => !c.classList.contains('is-wheel-moving'));
+      const boundedWheel = Archify.view.state();
       return {
         api: ['zoomAt','panBy','fit','worldViewport'].every(name => typeof Archify.view[name] === 'function'),
         grid: Boolean(grid) && getComputedStyle(grid).pointerEvents === 'none',
@@ -292,6 +307,8 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
           Math.abs(keyed.x - zoomed.x) < 0.01 && keyed.y < zoomed.y - 1,
         fitted, positive, outside: logical.outside, worldOutside: world.x > Number(svg.viewBox.baseVal.x + svg.viewBox.baseVal.width),
         radarOutside: marker.hasAttribute('data-outside') && Number(marker.getAttribute('width')) > 0,
+        boundedWheel: extremeWheel.defaultPrevented && boundedWheel.x === -1000000 &&
+          boundedWheel.y === -1000000 && !c.classList.contains('is-wheel-moving'),
         gridPosition: c.style.getPropertyValue('--archify-grid-x')
       };
     })()`, true);
@@ -312,6 +329,7 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
     assert.equal(result.outside, true);
     assert.equal(result.worldOutside, true);
     assert.equal(result.radarOutside, true);
+    assert.equal(result.boundedWheel, true, JSON.stringify(result));
     assert.match(result.gridPosition, /px$/);
     await stable();
     await snapshot('infinite-canvas');
@@ -451,9 +469,12 @@ test('Camera preserves transactions, rendered state and real caller handoffs', {
       await load('architecture', { width });
       const result = await run(`(async () => {
         const receipt = Archify.view.reveal(['db'], { instant: true });
-        return { outcome: (await receipt.finished).state, scrollTarget: 'scrollLeft' in receipt.target };
+        const c = document.querySelector('.diagram-container');
+        return { outcome: (await receipt.finished).state, scrollTarget: 'scrollLeft' in receipt.target,
+          touchAction: getComputedStyle(c).touchAction };
       })()`, true);
       assert.equal(result.scrollTarget, width <= 720);
+      assert.equal(result.touchAction, width <= 720 ? 'pan-x pan-y' : 'none');
       await stable();
       await snapshot(`width-${width}`);
     }

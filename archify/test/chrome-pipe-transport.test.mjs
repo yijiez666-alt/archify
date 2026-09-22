@@ -78,7 +78,7 @@ test('visual inspection gives slow local and UNC navigation a bounded load windo
     env: {},
     getuid: () => 1001,
     spawnImpl: () => child,
-    pageLoadTimeoutMs: 45_000,
+    pageLoadTimeoutMs: 45_123,
   });
   const startup = browser.sessionPromise.catch(() => {});
   let observedTimeout;
@@ -102,7 +102,7 @@ test('visual inspection gives slow local and UNC navigation a bounded load windo
       screenshotPath: null,
       writeScreenshot: false,
     }), /synthetic stop after navigation/);
-    assert.equal(observedTimeout, 45_000);
+    assert.equal(observedTimeout, 45_123);
   } finally {
     await browser.close();
     await startup;
