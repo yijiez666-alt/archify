@@ -497,11 +497,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         radial-gradient(circle at 92% 18%, rgba(139, 92, 246, 0.08), transparent 30rem);
     }
     html[data-preset="blueprint"] body {
-      background-image:
-        linear-gradient(var(--grid) 1px, transparent 1px),
-        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-image: radial-gradient(circle, var(--grid) 0 1px, transparent 1.2px);
       background-size: 32px 32px;
-      background-position: -1px -1px;
       background-attachment: fixed;
     }
     html[data-preset="editorial"] body {
@@ -1056,10 +1053,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .diagram-container.is-camera-transaction svg { transition: none; }
-    .diagram-container.is-pannable { cursor: grab; }
+    .diagram-container.is-pannable { cursor: default; }
     .diagram-container.is-panning { cursor: grabbing; user-select: none; }
-    .diagram-container.is-panning svg { transition: none; }
-    .diagram-container.is-wheel-panning svg { transition: none; }
+    .diagram-container.is-panning svg,
+    .diagram-container.is-keyboard-panning svg,
+    .diagram-container.is-wheel-moving svg { transition: none; will-change: transform; }
 
     .diagram-nav {
       position: absolute;
@@ -1078,6 +1076,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       box-shadow: 0 5px 14px rgba(0, 0, 0, 0.07);
       backdrop-filter: blur(10px);
       scrollbar-width: none;
+    }
+    .diagram-nav[data-viewport-docked] {
+      position: fixed;
+      right: var(--archify-nav-viewport-right, 1rem);
+      bottom: 0.5rem;
     }
     .diagram-nav::-webkit-scrollbar { display: none; }
     .diagram-nav button,
@@ -1348,10 +1351,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       overflow: hidden;
       border: 1px solid color-mix(in srgb, var(--panel-border) 72%, transparent);
       border-radius: 0.42rem;
-      background:
-        linear-gradient(color-mix(in srgb, var(--panel-border) 26%, transparent) 1px, transparent 1px),
-        linear-gradient(90deg, color-mix(in srgb, var(--panel-border) 26%, transparent) 1px, transparent 1px),
-        color-mix(in srgb, var(--bg) 86%, transparent);
+      background-color: color-mix(in srgb, var(--bg) 86%, transparent);
+      background-image: radial-gradient(circle,
+        color-mix(in srgb, var(--panel-border) 34%, transparent) 0 1px,
+        transparent 1.2px);
       background-size: 12px 12px;
       cursor: crosshair;
       touch-action: none;
@@ -3463,9 +3466,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       border-color: #34799a;
       border-radius: 0.08rem;
       background-color: #0a2031;
-      background-image:
-        linear-gradient(rgba(102, 217, 239, 0.18) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(102, 217, 239, 0.18) 1px, transparent 1px);
+      background-image: radial-gradient(circle, rgba(102, 217, 239, 0.34) 0 1px, transparent 1.2px);
       background-size: 0.42rem 0.42rem;
     }
     .preset-option-swatch.blueprint::before {
@@ -4116,7 +4117,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* ==========================================================
        SVG SEMANTIC CLASSES — use these instead of inline fill/stroke
        ========================================================== */
-    .c-grid       { stroke: var(--grid); fill: none; }
+    .c-grid       { fill: var(--grid); stroke: none; }
     .c-mask       { fill: var(--mask); stroke: none; }
 
     .c-frontend   { fill: var(--frontend-fill);   stroke: var(--frontend-stroke); }
@@ -4719,7 +4720,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     svg[data-preset="editorial"] .route-journey-flow { filter: none; }
 
     svg[data-preset="editorial"] .c-grid {
-      stroke-dasharray: 1 4;
       opacity: 0.48;
     }
     svg[data-preset="editorial"] .c-region {
@@ -4733,7 +4733,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
 
     svg[data-preset="blueprint"] .c-grid {
-      stroke-dasharray: 1 3;
       opacity: 0.78;
     }
     svg[data-preset="blueprint"] .c-region {
@@ -5152,7 +5151,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     <script id="archify-guided-views-data" type="application/json">[{"id":"readable-entry","label":"可读入口","focus":["w-0"],"note":"单节点入口必须达到 6px。"},{"id":"oversized-world","label":"完整大世界","focus":["w-0","w-1","w-2","w-3","w-4","w-5","w-6","w-7","w-8","w-9","w-10","w-11","w-12","w-13","w-14","w-15","w-16","w-17","w-18","w-19","w-20","w-21","w-22","w-23","w-24","w-25","w-26","w-27","w-28","w-29","w-30","w-31","w-32","w-33","w-34","w-35","w-36","w-37","w-38","w-39","w-40","w-41","w-42","w-43","w-44","w-45","w-46","w-47","w-48","w-49","w-50","w-51","w-52","w-53","w-54","w-55","w-56","w-57","w-58","w-59","w-60","w-61","w-62","w-63","w-64","w-65","w-66","w-67","w-68","w-69","w-70","w-71","w-72","w-73","w-74","w-75","w-76","w-77","w-78","w-79","w-80","w-81","w-82","w-83","w-84","w-85","w-86","w-87","w-88","w-89","w-90","w-91","w-92","w-93","w-94","w-95","w-96","w-97","w-98","w-99","w-100","w-101","w-102","w-103","w-104","w-105","w-106","w-107","w-108","w-109","w-110","w-111","w-112","w-113","w-114","w-115","w-116","w-117","w-118","w-119","w-120","w-121","w-122","w-123","w-124","w-125","w-126","w-127","w-128","w-129","w-130","w-131","w-132","w-133","w-134","w-135","w-136","w-137","w-138","w-139","w-140","w-141","w-142","w-143","w-144","w-145","w-146","w-147","w-148","w-149","w-150","w-151","w-152","w-153","w-154","w-155","w-156","w-157","w-158","w-159","w-160","w-161","w-162","w-163","w-164","w-165","w-166","w-167","w-168","w-169","w-170","w-171","w-172","w-173","w-174","w-175","w-176","w-177","w-178","w-179","w-180","w-181","w-182","w-183","w-184","w-185","w-186","w-187","w-188","w-189","w-190","w-191","w-192","w-193","w-194","w-195","w-196","w-197","w-198","w-199","w-200","w-201","w-202","w-203","w-204","w-205","w-206","w-207","w-208","w-209","w-210","w-211","w-212","w-213","w-214","w-215","w-216","w-217","w-218","w-219","w-220","w-221","w-222","w-223","w-224","w-225","w-226","w-227","w-228","w-229","w-230","w-231","w-232","w-233","w-234","w-235","w-236","w-237","w-238","w-239","w-240","w-241","w-242","w-243","w-244","w-245","w-246","w-247","w-248","w-249","w-250","w-251","w-252","w-253","w-254","w-255","w-256","w-257","w-258","w-259","w-260","w-261","w-262","w-263","w-264","w-265","w-266","w-267","w-268","w-269","w-270","w-271","w-272","w-273","w-274","w-275","w-276","w-277","w-278","w-279","w-280","w-281","w-282","w-283","w-284","w-285","w-286","w-287","w-288","w-289","w-290","w-291","w-292","w-293","w-294","w-295","w-296","w-297","w-298","w-299"],"note":"完整性优先的超大目标。"}]</script>
 
-    <script id="archify-i18n-data" type="application/json">{"locale":"zh-CN","messages":{"viewer.kind.frontend":"前端","viewer.kind.backend":"后端","viewer.kind.database":"数据库","viewer.kind.cloud":"云服务","viewer.kind.security":"安全","viewer.kind.messagebus":"消息总线","viewer.kind.external":"外部系统","viewer.kind.neutral":"中性","viewer.kind.node":"节点","viewer.kind.start":"开始","viewer.kind.active":"活动","viewer.kind.waiting":"等待","viewer.kind.decision":"决策","viewer.kind.success":"成功","viewer.kind.failure":"失败","viewer.toolbar.actions":"图表操作","viewer.theme.toggle.title":"切换主题（T）","viewer.theme.toggle":"切换颜色主题","viewer.theme.dark":"深色","viewer.theme.light":"浅色","viewer.preset.choose.title":"选择视觉风格（S 循环切换）","viewer.preset.choose":"选择视觉风格","viewer.preset.style":"风格","viewer.preset.menu":"视觉风格","viewer.preset.identity":"视觉表达","viewer.preset.cycles":"S 循环切换","viewer.preset.classic":"经典","viewer.preset.classic.short":"经典","viewer.preset.classic.hint":"稳定的技术默认风格","viewer.preset.flow":"信号流","viewer.preset.flow.short":"流动","viewer.preset.flow.hint":"突出动态流向","viewer.preset.blueprint":"蓝图","viewer.preset.blueprint.hint":"工程评审","viewer.preset.editorial":"编辑风格","viewer.preset.editorial.hint":"适合发布与上线说明","viewer.preset.badge.signalFlow":"信号流","viewer.preset.badge.blueprint":"蓝图 / 修订 01","viewer.preset.badge.editorial":"编辑风格 / 现场笔记","viewer.preset.badge.editorialPlate":"ARCHIFY / 图版 04","viewer.preset.current":"当前视觉风格：{style}。选择视觉风格","viewer.motion.live":"动态","viewer.motion.still":"静态","viewer.motion.pause":"暂停动效","viewer.motion.resume":"恢复动效","viewer.motion.reduced":"已根据减少动态效果偏好暂停动效","viewer.motion.hidden":"页面不可见时已暂停动效","viewer.motion.yielding":"暂停动效；当前让位于{owner}","viewer.motion.yielding.title":"动态预览已启用 · 正在让位于{owner}","viewer.owner.story":"引导故事","viewer.owner.chapter":"当前章节","viewer.owner.chapterPreview":"章节差异预览","viewer.owner.handoff":"章节交接","viewer.owner.route":"路径探测","viewer.owner.lens":"语义透镜","viewer.owner.relationship":"关系预览","viewer.owner.intent":"意图追踪","viewer.owner.focus":"语义聚焦","viewer.owner.legend":"图例预览","viewer.owner.reader":"读者交互","viewer.present.enter":"进入演示模式","viewer.present.enter.title":"演示模式（F）","viewer.present.exit":"退出演示模式","viewer.present.exit.title":"退出演示模式（F 或 Escape）","viewer.present.present":"演示","viewer.present.exit.label":"退出","viewer.export.button":"导出","viewer.export.button.title":"导出图表（E）","viewer.export.diagram":"导出图表","viewer.export.menu":"导出","viewer.export.subtitle":"便携、整洁的输出","viewer.export.share":"分享","viewer.export.shareCard":"分享卡片","viewer.export.routeShareCard":"路径分享卡片","viewer.export.reachShareCard":"可达范围分享卡片","viewer.export.copyShareCard":"复制分享卡片","viewer.export.copyDiagram":"复制图表","viewer.export.clipboardPng":"复制 PNG 到剪贴板","viewer.export.raster":"位图","viewer.export.image":"图像","viewer.export.lossless":"无损图像","viewer.export.compact":"紧凑图像","viewer.export.modern":"现代图像格式","viewer.export.vectorMotion":"矢量与动效","viewer.export.vectorMotion.heading":"矢量与动效","viewer.export.editable":"可编辑矢量图","viewer.export.motion6s":"6 秒动效","viewer.export.unsupported":"当前浏览器不支持","viewer.export.clipboardUnsupported":"当前浏览器不支持写入图片剪贴板","viewer.export.clipboardUnsupported.period":"当前浏览器不支持写入图片剪贴板。","viewer.export.clipboardUnsupported.short":"此浏览器不支持写入图片剪贴板。","viewer.export.motionUnavailable":"当前浏览器无法录制动效","viewer.export.webmUnavailable":"当前浏览器不支持 WebM","viewer.export.failed":"导出失败：{message}","viewer.export.unknownVariant":"未知的分享卡片类型：{variant}","viewer.export.routeRequired":"请先追踪路径，再导出路径分享卡片","viewer.export.reachRequired":"请先追踪编写可达范围，再导出可达范围分享卡片","viewer.export.unknown":"未知错误","viewer.export.routeFailed":"路径分享卡片导出失败：{message}","viewer.export.reachFailed":"可达范围分享卡片导出失败：{message}","viewer.export.copyFailed":"复制失败：{message}","viewer.export.copiedPng":"已将 PNG 复制到剪贴板","viewer.export.copiedShare":"已复制分享卡片","viewer.export.downloadedShare":"已下载分享卡片","viewer.export.downloadedRoute":"已下载路径分享卡片","viewer.export.downloadedReach":"已下载可达范围分享卡片","viewer.export.downloadedWebm":"已下载 WebM","viewer.export.recording":"正在录制 6 秒动效…","viewer.export.card.routeSummary.one":"路径：{source} → {target} · {count} 个有向跳转","viewer.export.card.routeSummary.other":"路径：{source} → {target} · {count} 个有向跳转","viewer.export.card.reachSummary":"从{origin}开始的编写{direction} · {nodes} · {links} · 最深 {hops}","viewer.export.card.node.one":"{count} 个节点","viewer.export.card.node.other":"{count} 个节点","viewer.export.card.link.one":"{count} 条连接","viewer.export.card.link.other":"{count} 条连接","viewer.export.card.hop.one":"{count} 跳","viewer.export.card.hop.other":"{count} 跳","viewer.export.card.routeBadge":"ARCHIFY · 路径 · {hops}","viewer.export.card.reachBadge":"ARCHIFY · {direction}可达范围","viewer.export.card.defaultBadge":"ARCHIFY · {preset} · {theme}","viewer.export.direction.upstream":"上游","viewer.export.direction.downstream":"下游","viewer.export.error.canvasUnavailable":"无法为{label}使用画布","viewer.export.error.contextUnavailable":"无法为{label}创建二维画布上下文","viewer.export.error.toBlobUnavailable":"{label}无法使用 canvas.toBlob","viewer.export.error.toBlobNull":"{label}的 canvas.toBlob 未返回数据","viewer.export.error.variantsCombined":"无法同时组合多种分享卡片类型","viewer.export.error.viewerState":"分享卡片导出无法移除临时 Viewer 状态","viewer.export.error.routeState":"路径卡片导出无法安全保留已解析路径","viewer.export.error.reachState":"可达范围卡片导出无法安全保留编写的可达范围","viewer.export.error.webmRequirements":"WebM 动效导出需要追踪动画及浏览器 MediaRecorder 支持","viewer.export.error.mediaRecorder":"MediaRecorder 录制失败","viewer.export.error.emptyWebm":"MediaRecorder 生成了空的 WebM","viewer.export.error.webmBackground":"无法为 WebM 导出加载 SVG 背景","viewer.guided.region":"图表引导视图","viewer.guided.previous":"上一个引导视图","viewer.guided.previous.title":"上一个引导视图（[）","viewer.guided.next":"下一个引导视图","viewer.guided.next.title":"下一个引导视图（]）","viewer.guided.views":"引导视图","viewer.guided.explore":"探索此系统","viewer.guided.intro":"沿精选路径逐步查看，而不改变源图表。","viewer.guided.trail":"故事轨迹","viewer.guided.beat":"节点","viewer.guided.nextBeat":"下一步","viewer.guided.play":"播放引导故事","viewer.guided.play.title":"播放引导故事（P）","viewer.guided.pause":"暂停引导故事","viewer.guided.pause.title":"暂停引导故事（P）","viewer.guided.replay":"重播引导故事","viewer.guided.replay.title":"重播引导故事（P）","viewer.guided.playStory":"播放故事","viewer.guided.pauseStory":"暂停","viewer.guided.replayStory":"重播故事","viewer.guided.motionUnavailable":"静态模式下无法播放故事","viewer.guided.enableMotion":"切换为动态模式以播放引导故事","viewer.guided.selectBeatLink":"选择故事节点以复制其精确链接","viewer.guided.copyMoment":"复制此刻","viewer.guided.momentCopied":"已复制时刻链接","viewer.guided.momentCopyFailed":"无法复制故事时刻链接","viewer.guided.copied":"已复制","viewer.guided.copyFailed":"复制失败","viewer.guided.showAll":"显示全部","viewer.guided.showAll.aria":"显示完整图表","viewer.guided.chapters":"故事章节","viewer.guided.storyTrail":"{label}的故事轨迹：{count} 个节点","viewer.guided.chapter.open":"打开第 {index}/{total} 章：{label}，{count} 个停靠点","viewer.guided.chapter.current":"当前第 {index}/{total} 章：{label}，{count} 个停靠点","viewer.guided.chapter.selectedNodes":"已选择 {count} 个节点","viewer.guided.chapter.stops":"{count} 个停靠点","viewer.guided.chapter.stop.one":"{count} 个停靠点","viewer.guided.chapter.stop.other":"{count} 个停靠点","viewer.guided.chapter.current.title":"{label} — 当前章节，{count} 个停靠点","viewer.guided.chapter.delta.expanded":"{stay} 个保留，{enter} 个进入，{leave} 个离开","viewer.guided.chapter.delta.aria":"打开第 {index}/{total} 章：{label}。章节聚焦差异：{delta}","viewer.guided.chapter.delta.title":"{label} — 章节聚焦 {delta}","viewer.guided.handoff":"{from} → {to} · 经由{label}","viewer.guided.share.chapter":"章节 {index} / {total}","viewer.guided.share.initial":"章节 01 / 01","viewer.guided.share.default":"引导章节","viewer.guided.state.ready":"就绪","viewer.guided.state.playing":"播放中","viewer.guided.state.settled":"已完成","viewer.guided.state.paused":"已暂停","viewer.guided.state.pinned":"已固定","viewer.guided.state.still":"静态","viewer.guided.share.step":"步骤 {index} / {total} · {label}","viewer.guided.share.staticMoment":"{step} · 静态时刻","viewer.guided.share.complete":"{count} 个步骤已完成 · {note}","viewer.guided.share.settled":"路径已稳定，可供阅读。","viewer.guided.share.staticPath":"{count} 个步骤 · 静态路径","viewer.guided.share.ready":"{count} 个步骤 · 就绪","viewer.guided.share.aria":"{state}，第 {index}/{total} 章：{label}。{beat}。{route}","viewer.guided.beat.start":"节点 {index} / {total} · {label} · 起点","viewer.guided.beat.forward":"节点 {index} / {total} · {from} → {to}","viewer.guided.beat.reverse":"节点 {index} / {total} · {from} → {to} · 反向编写连接","viewer.guided.beat.multiple":"节点 {index} / {total} · {from} ⇄ {to} · {count} 条编写连接","viewer.guided.beat.group":"节点 {index} / {total} · {from} · {to} · 分组 · 无直接连接","viewer.guided.beat.aria.prefix":"故事节点 {index}/{total}：{label}。","viewer.guided.beat.aria.start":"起点。","viewer.guided.beat.aria.forward":"从{from}经一条正向编写关系到达。","viewer.guided.beat.aria.reverse":"从{from}出发；编写关系实际由{to}指向{from}。","viewer.guided.beat.aria.multiple":"从{from}经 {count} 条编写关系到达；不使用任意动效。","viewer.guided.beat.aria.group":"与{from}分组展示，没有直接编写关系。","viewer.guided.caption.start":"起点","viewer.guided.caption.grouped":"分组过渡 · 无直接编写连接","viewer.guided.caption.more":" +另外 {count} 条","viewer.guided.caption.reverse":"反向编写关系","viewer.guided.caption.relationships":"{count} 条编写关系","viewer.guided.caption.relationship":"编写关系","viewer.guided.caption.direction":"编写方向：{from} → {to}","viewer.guided.caption.starting":"编写起点","viewer.guided.beatLink":"复制当前故事时刻链接：第 {index}/{total} 个节点：{label}","viewer.guided.noStory":"此图表没有编写引导故事。","viewer.guide.eyebrow":"图表指南","viewer.guide.close":"关闭图表指南","viewer.guide.inspecting":"正在检查已编译语义","viewer.guide.actions":"图表探索操作","viewer.guide.find":"查找任意节点","viewer.guide.find.hint":"搜索标签、职责、类型和稳定 ID。","viewer.guide.route":"追踪路径","viewer.guide.route.aria":"追踪有向路径","viewer.guide.route.hint":"查看两个语义节点如何按编写方向连接。","viewer.guide.map":"查看完整系统","viewer.guide.map.hint":"打开带实时视口和稳定节点的语义雷达。","viewer.guide.lens":"比较语义类型","viewer.guide.lens.hint":"统计角色、显示流量并比较直接编写的连接。","viewer.guide.story":"播放引导故事","viewer.guide.story.hint":"浏览已编写的章节和真实关系。","viewer.guide.present":"进入演示模式","viewer.guide.present.hint":"让实时图表占满视口，同时不改变导出。","viewer.guide.shortcuts":"其他键盘快捷键","viewer.guide.shortcut.export":"导出","viewer.guide.shortcut.theme":"主题","viewer.guide.shortcut.style":"风格","viewer.guide.shortcut.reset":"重置","viewer.guide.shortcut.zoomIn":"放大","viewer.guide.shortcut.zoomOut":"缩小","viewer.guide.shortcut.close":"关闭","viewer.guide.facts":"{nodes} · {relationships} · {views}","viewer.guide.fact.node.one":"{count} 个语义节点","viewer.guide.fact.node.other":"{count} 个语义节点","viewer.guide.fact.relationship.one":"{count} 条关系","viewer.guide.fact.relationship.other":"{count} 条关系","viewer.guide.fact.view.one":"{count} 个引导视图","viewer.guide.fact.view.other":"{count} 个引导视图","viewer.guide.story.available.one":"浏览 {count} 个已编写章节及其真实关系。","viewer.guide.story.available.other":"浏览 {count} 个已编写章节及其真实关系。","viewer.guide.story.unavailable":"此图表没有编写引导故事。","viewer.guide.open":"打开图表指南","viewer.guide.noStory":"此图表没有编写引导故事。","viewer.finder.title":"查找节点","viewer.finder.close":"关闭节点查找器","viewer.finder.placeholder":"搜索标签或 ID","viewer.finder.search":"搜索图表节点","viewer.finder.results":"图表节点","viewer.finder.empty":"没有匹配的节点","viewer.finder.result.focus":"聚焦{label}","viewer.finder.result.routeStart":"选择{label}作为路径起点","viewer.finder.result.routeTarget":"选择{label}作为路径终点，{links}","viewer.finder.status.empty":"没有匹配的节点","viewer.finder.status.count.one":"{count} 个匹配节点","viewer.finder.status.count.other":"{count} 个匹配节点","viewer.finder.noun.nodes":"个节点","viewer.finder.link.one":"{count} 条连接","viewer.finder.link.other":"{count} 条连接","viewer.finder.result.focus.one":"聚焦{label}，{count} 条相关连接","viewer.finder.result.focus.other":"聚焦{label}，{count} 条相关连接","viewer.finder.status.filtered":"{visible}/{available} {noun}","viewer.finder.status.all":"{available} {noun}","viewer.passport.eyebrow":"语义护照","viewer.passport.metadata":"节点元数据","viewer.passport.evidence":"已验证的源代码证据","viewer.passport.verified":"已验证来源","viewer.passport.verificationScope":"已按固定修订版本验证本地 Git 证据，未检查远程访问权限。","viewer.passport.reach":"编写可达范围","viewer.passport.reach.trace":"追踪编写的可达性","viewer.passport.upstream":"上游","viewer.passport.downstream":"下游","viewer.passport.upstream.trace":"追踪上游编写可达性","viewer.passport.downstream.trace":"追踪下游编写可达性","viewer.passport.close":"关闭语义护照","viewer.passport.move":"移动语义护照。可拖动、使用方向键移动，或按 Home 恢复自动位置。","viewer.passport.copy":"复制链接","viewer.passport.copy.focus":"复制聚焦节点的链接","viewer.passport.relations":"关系","viewer.passport.relations.show":"显示关联关系","viewer.passport.relations.hide":"隐藏关联关系","viewer.passport.relations.list":"关联关系","viewer.passport.copyRelation":"复制关系","viewer.passport.copyNode":"复制节点","viewer.passport.copyPinned":"复制固定关系的链接","viewer.passport.copySource":"复制来源节点的链接","viewer.passport.copy.focused.success":"已复制聚焦节点链接","viewer.passport.copy.pinned.success":"已复制固定关系链接","viewer.passport.copy.focused.failed":"无法复制聚焦节点链接","viewer.passport.copy.pinned.failed":"无法复制固定关系链接","viewer.passport.relationship.none":"没有关联关系","viewer.passport.relationship.count.one":"{count} 条关系","viewer.passport.relationship.count.other":"{count} 条关系","viewer.passport.relationship.show.one":"显示 {count} 条关联关系","viewer.passport.relationship.show.other":"显示 {count} 条关联关系","viewer.passport.relationship.summary":"{out} 条出向 · {in} 条入向{loops}","viewer.passport.relationship.loops":" · {count} 条自环","viewer.passport.relationship.explorer":"直接关系浏览器","viewer.passport.relationship.help":"使用方向键浏览关系。按 Enter 或空格键固定详情；按 Escape 清除。","viewer.passport.relationship.loopsBack":"回环","viewer.passport.relationship.connectsTo":"连接到","viewer.passport.relationship.connectsFrom":"连接自","viewer.passport.relationship.pinned":"已固定关系 · {from} → {to} · {label}","viewer.passport.relationship.inspect":"检查第 {index}/{total} 条关系：{from} 到 {to}，{label}。按 Enter 查看详情。","viewer.passport.relationship.group.out":"出向","viewer.passport.relationship.group.in":"入向","viewer.passport.relationship.group.loop":"自环","viewer.passport.relationship.row":"{group}：{relationship}，{neighbor}","viewer.passport.relationship.direction.out":"出 →","viewer.passport.relationship.direction.in":"← 入","viewer.passport.relationship.direction.loop":"自环","viewer.passport.sourceCount.one":"{count} 个已验证来源引用","viewer.passport.sourceCount.other":"{count} 个已验证来源引用","viewer.passport.sourceMarker":"来源","viewer.passport.beacon.one":"{count} 个已验证来源；聚焦此节点以检查","viewer.passport.beacon.other":"{count} 个已验证来源；聚焦此节点以检查","viewer.passport.repository.open":"打开已验证的仓库修订版本 {revision}","viewer.passport.source.open":"打开修订版本 {revision} 中已验证的来源 {path}","viewer.passport.source.openLink":"打开 ↗","viewer.passport.reach.upstream.one":"追踪 {count} 个上游编写节点","viewer.passport.reach.upstream.other":"追踪 {count} 个上游编写节点","viewer.passport.reach.downstream.one":"追踪 {count} 个下游编写节点","viewer.passport.reach.downstream.other":"追踪 {count} 个下游编写节点","viewer.passport.reach.noUpstream":"没有上游编写节点","viewer.passport.reach.noDownstream":"没有下游编写节点","viewer.passport.reach.status":"{direction} · {nodes} 个节点 · {links} 条连接 · 最深 {hops} 跳","viewer.route.eyebrow":"路径探测","viewer.route.start":"选择起点节点","viewer.route.start.find":"查找起点","viewer.route.start.find.aria":"查找路径起点","viewer.route.copy":"复制链接","viewer.route.copy.aria":"复制已追踪路径的链接","viewer.route.clear":"清除","viewer.route.clear.aria":"清除路径探测","viewer.route.traced":"已追踪路径","viewer.route.pickTwo":"在图表中选择两个语义节点","viewer.route.pickOne":"在图表中选择一个语义节点","viewer.route.controls":"路径旅程控制","viewer.route.previous":"上一个路径位置","viewer.route.play":"播放路径旅程","viewer.route.pause":"暂停路径旅程","viewer.route.replay":"重播路径旅程","viewer.route.next":"下一个路径位置","viewer.route.journey":"旅程","viewer.route.pause.label":"暂停","viewer.route.replay.label":"重播","viewer.route.overview":"总览","viewer.route.overview.aria":"显示完整路径总览","viewer.route.instructions":"先选择来源，再选择目标；方向很重要。","viewer.route.destination":"选择从{label}出发的目标","viewer.route.destination.find":"查找目标","viewer.route.destination.find.aria":"查找可达的路径目标","viewer.route.differentDestination":"选择其他目标","viewer.route.distinct":"一条路径需要两个不同的语义节点。","viewer.route.unreachable":"没有通往{label}的有向路径","viewer.route.unreachable.detail":"从{source}无法到达{target}。请选择高亮的目标。","viewer.route.start.instructions":"选择来源。下一步只会显示有向可达的目标。","viewer.route.copy.success":"已复制路径链接","viewer.route.copy.failed":"无法复制路径链接","viewer.route.position":"路径位置 {index}/{total}：{label}","viewer.route.step":"第 {index}/{total} 步 · {phase} · {label}","viewer.route.motionRequired":"自动旅程需要动态模式","viewer.route.trigger.clear":"清除已追踪路径","viewer.route.overview.status":"{nodes} · {hops} · 最短编写路径","viewer.route.overview.node.one":"{count} 个节点","viewer.route.overview.node.other":"{count} 个节点","viewer.route.overview.hop.one":"{count} 个有向跳转","viewer.route.overview.hop.other":"{count} 个有向跳转","viewer.route.phase.playing":"播放中","viewer.route.phase.complete":"已完成","viewer.route.phase.inspecting":"检查中","viewer.route.destination.count.one":"有 {count} 个有向目标可用。请选择高亮节点。","viewer.route.destination.count.other":"有 {count} 个有向目标可用。请选择高亮节点。","viewer.route.noOutgoing":"此处没有可用的出向路径。请清除后选择其他来源。","viewer.route.result.title":"{source} 到 {target}","viewer.route.finder.source.title":"选择路径起点","viewer.route.finder.source.placeholder":"搜索路径来源","viewer.route.finder.source.empty":"没有匹配的路径来源","viewer.route.finder.source.results":"可作为路径起点的节点","viewer.route.finder.source.noun":"个路径来源","viewer.route.finder.source.badge":"起点","viewer.route.finder.target.title":"从{label}出发的目标","viewer.route.finder.target.placeholder":"搜索可达目标","viewer.route.finder.target.empty":"没有匹配的可达目标","viewer.route.finder.target.results":"可达路径目标","viewer.route.finder.target.noun":"个可达目标","viewer.route.hop.one":"{count} 跳","viewer.route.hop.other":"{count} 跳","viewer.lens.eyebrow":"语义透镜","viewer.lens.title":"比较系统角色","viewer.lens.close":"关闭语义透镜","viewer.lens.instruction":"最多选择两种语义类型。选择一种可显示其真实流量；选择两种只比较直接编写的关系。","viewer.lens.kinds":"语义类型","viewer.lens.choose":"选择一种类型以检查其节点和相连关系。","viewer.lens.copy":"复制语义透镜链接","viewer.lens.clear":"清除语义透镜","viewer.lens.open":"打开语义透镜","viewer.lens.openActive":"打开当前语义透镜","viewer.lens.legend":"语义图例","viewer.lens.legend.inspect.one":"检查{label}，{count} 个节点","viewer.lens.legend.inspect.other":"检查{label}，{count} 个节点","viewer.lens.kind.count.one":"{label}，{count} 个节点","viewer.lens.kind.count.other":"{label}，{count} 个节点","viewer.lens.compare.one":"{first} → {second}：{forward} · {second} → {first}：{reverse} · 共 {count} 条直接关系","viewer.lens.compare.other":"{first} → {second}：{forward} · {second} → {first}：{reverse} · 共 {count} 条直接关系","viewer.lens.single":"{nodes} · {relationships} · 已连接节点保持可见","viewer.lens.node.one":"{count} 个{label}节点","viewer.lens.node.other":"{count} 个{label}节点","viewer.lens.relationship.one":"{count} 条相连关系","viewer.lens.relationship.other":"{count} 条相连关系","viewer.radar.title":"语义雷达","viewer.radar.building":"正在构建总览","viewer.radar.openFull":"打开完整语义雷达","viewer.radar.open":"打开雷达","viewer.radar.close":"关闭语义雷达","viewer.radar.surface":"图表总览。点击节点进行聚焦，或使用方向键平移。","viewer.radar.click":"点击节点","viewer.radar.drag":"拖动平移","viewer.radar.space":"语义雷达需要更多地图可见空间。","viewer.radar.nodes":"语义图表雷达节点","viewer.radar.focus":"从语义雷达聚焦{label}","viewer.radar.status":"{count} 个节点 · {viewport}","viewer.radar.fullMap":"{count} 个节点 · 完整地图","viewer.radar.compacted":"已收紧雷达，避免遮挡语义护照或地图控件。","viewer.radar.cancelWaiting":"取消等待更多地图空间的语义雷达","viewer.radar.needsSpace":"语义雷达需要更多可见地图空间","viewer.radar.viewport.full":"完整地图","viewer.radar.viewport.width":"宽度 {percent}%","viewer.radar.viewport.scale":"视口 {percent}%","viewer.nav.controls":"图表视图控制","viewer.nav.route":"追踪有向路径","viewer.nav.route.title":"追踪路径（R）","viewer.nav.route.short":"路径","viewer.nav.radar":"打开语义雷达","viewer.nav.radar.title":"语义雷达（M）","viewer.nav.radar.short":"地图","viewer.nav.lens":"打开语义透镜","viewer.nav.lens.title":"语义透镜（L）","viewer.nav.lens.short":"透镜","viewer.nav.find":"查找节点","viewer.nav.find.title":"查找节点（/）","viewer.nav.guide":"打开图表指南","viewer.nav.guide.title":"图表指南（?）","viewer.nav.zoomOut":"缩小","viewer.nav.zoomOut.title":"缩小（-）","viewer.nav.reset":"重置图表视图","viewer.nav.reset.title":"重置视图（0）","viewer.nav.read":"阅读","viewer.nav.zoomIn":"放大","viewer.nav.zoomIn.title":"放大（+）","viewer.nav.camera":"{hint}。重置图表视图","viewer.nav.camera.title":"{semantic}{hint} · 重置视图（0）","viewer.nav.camera.semantic":"语义相机已启用 · ","viewer.nav.level.map":"概览","viewer.nav.level.read":"阅读","viewer.nav.level.full":"完整","viewer.nav.level.auto":"自动","viewer.nav.detail.map":"放大以显示关系标签和节点上下文","viewer.nav.detail.read":"再次放大以显示标签和注释","viewer.nav.detail.full":"完整图表详情","viewer.intent.summary":"{label}。{out} 条出向，{in} 条入向{loops}。共 {total} 条连接。按 Enter 查看详情。","viewer.intent.loops":"，{count} 条自环","viewer.common.copied":"已复制","viewer.common.copyFailed":"复制失败","viewer.common.copyLink":"复制链接","viewer.common.clear":"清除","viewer.common.close":"关闭"}}</script>
+    <script id="archify-i18n-data" type="application/json">{"locale":"zh-CN","messages":{"viewer.kind.frontend":"前端","viewer.kind.backend":"后端","viewer.kind.database":"数据库","viewer.kind.cloud":"云服务","viewer.kind.security":"安全","viewer.kind.messagebus":"消息总线","viewer.kind.external":"外部系统","viewer.kind.neutral":"中性","viewer.kind.node":"节点","viewer.kind.start":"开始","viewer.kind.active":"活动","viewer.kind.waiting":"等待","viewer.kind.decision":"决策","viewer.kind.success":"成功","viewer.kind.failure":"失败","viewer.toolbar.actions":"图表操作","viewer.theme.toggle.title":"切换主题（T）","viewer.theme.toggle":"切换颜色主题","viewer.theme.dark":"深色","viewer.theme.light":"浅色","viewer.preset.choose.title":"选择视觉风格（S 循环切换）","viewer.preset.choose":"选择视觉风格","viewer.preset.style":"风格","viewer.preset.menu":"视觉风格","viewer.preset.identity":"视觉表达","viewer.preset.cycles":"S 循环切换","viewer.preset.classic":"经典","viewer.preset.classic.short":"经典","viewer.preset.classic.hint":"稳定的技术默认风格","viewer.preset.flow":"信号流","viewer.preset.flow.short":"流动","viewer.preset.flow.hint":"突出动态流向","viewer.preset.blueprint":"蓝图","viewer.preset.blueprint.hint":"工程评审","viewer.preset.editorial":"编辑风格","viewer.preset.editorial.hint":"适合发布与上线说明","viewer.preset.badge.signalFlow":"信号流","viewer.preset.badge.blueprint":"蓝图 / 修订 01","viewer.preset.badge.editorial":"编辑风格 / 现场笔记","viewer.preset.badge.editorialPlate":"ARCHIFY / 图版 04","viewer.preset.current":"当前视觉风格：{style}。选择视觉风格","viewer.motion.live":"动态","viewer.motion.still":"静态","viewer.motion.pause":"暂停动效","viewer.motion.resume":"恢复动效","viewer.motion.reduced":"已根据减少动态效果偏好暂停动效","viewer.motion.hidden":"页面不可见时已暂停动效","viewer.motion.yielding":"暂停动效；当前让位于{owner}","viewer.motion.yielding.title":"动态预览已启用 · 正在让位于{owner}","viewer.owner.story":"引导故事","viewer.owner.chapter":"当前章节","viewer.owner.chapterPreview":"章节差异预览","viewer.owner.handoff":"章节交接","viewer.owner.route":"路径探测","viewer.owner.lens":"语义透镜","viewer.owner.relationship":"关系预览","viewer.owner.intent":"意图追踪","viewer.owner.focus":"语义聚焦","viewer.owner.legend":"图例预览","viewer.owner.reader":"读者交互","viewer.present.enter":"进入演示模式","viewer.present.enter.title":"演示模式（F）","viewer.present.exit":"退出演示模式","viewer.present.exit.title":"退出演示模式（F 或 Escape）","viewer.present.present":"演示","viewer.present.exit.label":"退出","viewer.export.button":"导出","viewer.export.button.title":"导出图表（E）","viewer.export.diagram":"导出图表","viewer.export.menu":"导出","viewer.export.subtitle":"便携、整洁的输出","viewer.export.share":"分享","viewer.export.shareCard":"分享卡片","viewer.export.routeShareCard":"路径分享卡片","viewer.export.reachShareCard":"可达范围分享卡片","viewer.export.copyShareCard":"复制分享卡片","viewer.export.copyDiagram":"复制图表","viewer.export.clipboardPng":"复制 PNG 到剪贴板","viewer.export.raster":"位图","viewer.export.image":"图像","viewer.export.lossless":"无损图像","viewer.export.compact":"紧凑图像","viewer.export.modern":"现代图像格式","viewer.export.vectorMotion":"矢量与动效","viewer.export.vectorMotion.heading":"矢量与动效","viewer.export.editable":"可编辑矢量图","viewer.export.motion6s":"6 秒动效","viewer.export.unsupported":"当前浏览器不支持","viewer.export.clipboardUnsupported":"当前浏览器不支持写入图片剪贴板","viewer.export.clipboardUnsupported.period":"当前浏览器不支持写入图片剪贴板。","viewer.export.clipboardUnsupported.short":"此浏览器不支持写入图片剪贴板。","viewer.export.motionUnavailable":"当前浏览器无法录制动效","viewer.export.webmUnavailable":"当前浏览器不支持 WebM","viewer.export.failed":"导出失败：{message}","viewer.export.unknownVariant":"未知的分享卡片类型：{variant}","viewer.export.routeRequired":"请先追踪路径，再导出路径分享卡片","viewer.export.reachRequired":"请先追踪编写可达范围，再导出可达范围分享卡片","viewer.export.unknown":"未知错误","viewer.export.routeFailed":"路径分享卡片导出失败：{message}","viewer.export.reachFailed":"可达范围分享卡片导出失败：{message}","viewer.export.copyFailed":"复制失败：{message}","viewer.export.copiedPng":"已将 PNG 复制到剪贴板","viewer.export.copiedShare":"已复制分享卡片","viewer.export.downloadedShare":"已下载分享卡片","viewer.export.downloadedRoute":"已下载路径分享卡片","viewer.export.downloadedReach":"已下载可达范围分享卡片","viewer.export.downloadedWebm":"已下载 WebM","viewer.export.recording":"正在录制 6 秒动效…","viewer.export.card.routeSummary.one":"路径：{source} → {target} · {count} 个有向跳转","viewer.export.card.routeSummary.other":"路径：{source} → {target} · {count} 个有向跳转","viewer.export.card.reachSummary":"从{origin}开始的编写{direction} · {nodes} · {links} · 最深 {hops}","viewer.export.card.node.one":"{count} 个节点","viewer.export.card.node.other":"{count} 个节点","viewer.export.card.link.one":"{count} 条连接","viewer.export.card.link.other":"{count} 条连接","viewer.export.card.hop.one":"{count} 跳","viewer.export.card.hop.other":"{count} 跳","viewer.export.card.routeBadge":"ARCHIFY · 路径 · {hops}","viewer.export.card.reachBadge":"ARCHIFY · {direction}可达范围","viewer.export.card.defaultBadge":"ARCHIFY · {preset} · {theme}","viewer.export.direction.upstream":"上游","viewer.export.direction.downstream":"下游","viewer.export.error.canvasUnavailable":"无法为{label}使用画布","viewer.export.error.contextUnavailable":"无法为{label}创建二维画布上下文","viewer.export.error.toBlobUnavailable":"{label}无法使用 canvas.toBlob","viewer.export.error.toBlobNull":"{label}的 canvas.toBlob 未返回数据","viewer.export.error.variantsCombined":"无法同时组合多种分享卡片类型","viewer.export.error.viewerState":"分享卡片导出无法移除临时 Viewer 状态","viewer.export.error.routeState":"路径卡片导出无法安全保留已解析路径","viewer.export.error.reachState":"可达范围卡片导出无法安全保留编写的可达范围","viewer.export.error.webmRequirements":"WebM 动效导出需要追踪动画及浏览器 MediaRecorder 支持","viewer.export.error.mediaRecorder":"MediaRecorder 录制失败","viewer.export.error.emptyWebm":"MediaRecorder 生成了空的 WebM","viewer.export.error.webmBackground":"无法为 WebM 导出加载 SVG 背景","viewer.guided.region":"图表引导视图","viewer.guided.previous":"上一个引导视图","viewer.guided.previous.title":"上一个引导视图（[）","viewer.guided.next":"下一个引导视图","viewer.guided.next.title":"下一个引导视图（]）","viewer.guided.views":"引导视图","viewer.guided.explore":"探索此系统","viewer.guided.intro":"沿精选路径逐步查看，而不改变源图表。","viewer.guided.trail":"故事轨迹","viewer.guided.beat":"节点","viewer.guided.nextBeat":"下一步","viewer.guided.play":"播放引导故事","viewer.guided.play.title":"播放引导故事（P）","viewer.guided.pause":"暂停引导故事","viewer.guided.pause.title":"暂停引导故事（P）","viewer.guided.replay":"重播引导故事","viewer.guided.replay.title":"重播引导故事（P）","viewer.guided.playStory":"播放故事","viewer.guided.pauseStory":"暂停","viewer.guided.replayStory":"重播故事","viewer.guided.motionUnavailable":"静态模式下无法播放故事","viewer.guided.enableMotion":"切换为动态模式以播放引导故事","viewer.guided.selectBeatLink":"选择故事节点以复制其精确链接","viewer.guided.copyMoment":"复制此刻","viewer.guided.momentCopied":"已复制时刻链接","viewer.guided.momentCopyFailed":"无法复制故事时刻链接","viewer.guided.copied":"已复制","viewer.guided.copyFailed":"复制失败","viewer.guided.showAll":"显示全部","viewer.guided.showAll.aria":"显示完整图表","viewer.guided.chapters":"故事章节","viewer.guided.storyTrail":"{label}的故事轨迹：{count} 个节点","viewer.guided.chapter.open":"打开第 {index}/{total} 章：{label}，{count} 个停靠点","viewer.guided.chapter.current":"当前第 {index}/{total} 章：{label}，{count} 个停靠点","viewer.guided.chapter.selectedNodes":"已选择 {count} 个节点","viewer.guided.chapter.stops":"{count} 个停靠点","viewer.guided.chapter.stop.one":"{count} 个停靠点","viewer.guided.chapter.stop.other":"{count} 个停靠点","viewer.guided.chapter.current.title":"{label} — 当前章节，{count} 个停靠点","viewer.guided.chapter.delta.expanded":"{stay} 个保留，{enter} 个进入，{leave} 个离开","viewer.guided.chapter.delta.aria":"打开第 {index}/{total} 章：{label}。章节聚焦差异：{delta}","viewer.guided.chapter.delta.title":"{label} — 章节聚焦 {delta}","viewer.guided.handoff":"{from} → {to} · 经由{label}","viewer.guided.share.chapter":"章节 {index} / {total}","viewer.guided.share.initial":"章节 01 / 01","viewer.guided.share.default":"引导章节","viewer.guided.state.ready":"就绪","viewer.guided.state.playing":"播放中","viewer.guided.state.settled":"已完成","viewer.guided.state.paused":"已暂停","viewer.guided.state.pinned":"已固定","viewer.guided.state.still":"静态","viewer.guided.share.step":"步骤 {index} / {total} · {label}","viewer.guided.share.staticMoment":"{step} · 静态时刻","viewer.guided.share.complete":"{count} 个步骤已完成 · {note}","viewer.guided.share.settled":"路径已稳定，可供阅读。","viewer.guided.share.staticPath":"{count} 个步骤 · 静态路径","viewer.guided.share.ready":"{count} 个步骤 · 就绪","viewer.guided.share.aria":"{state}，第 {index}/{total} 章：{label}。{beat}。{route}","viewer.guided.beat.start":"节点 {index} / {total} · {label} · 起点","viewer.guided.beat.forward":"节点 {index} / {total} · {from} → {to}","viewer.guided.beat.reverse":"节点 {index} / {total} · {from} → {to} · 反向编写连接","viewer.guided.beat.multiple":"节点 {index} / {total} · {from} ⇄ {to} · {count} 条编写连接","viewer.guided.beat.group":"节点 {index} / {total} · {from} · {to} · 分组 · 无直接连接","viewer.guided.beat.aria.prefix":"故事节点 {index}/{total}：{label}。","viewer.guided.beat.aria.start":"起点。","viewer.guided.beat.aria.forward":"从{from}经一条正向编写关系到达。","viewer.guided.beat.aria.reverse":"从{from}出发；编写关系实际由{to}指向{from}。","viewer.guided.beat.aria.multiple":"从{from}经 {count} 条编写关系到达；不使用任意动效。","viewer.guided.beat.aria.group":"与{from}分组展示，没有直接编写关系。","viewer.guided.caption.start":"起点","viewer.guided.caption.grouped":"分组过渡 · 无直接编写连接","viewer.guided.caption.more":" +另外 {count} 条","viewer.guided.caption.reverse":"反向编写关系","viewer.guided.caption.relationships":"{count} 条编写关系","viewer.guided.caption.relationship":"编写关系","viewer.guided.caption.direction":"编写方向：{from} → {to}","viewer.guided.caption.starting":"编写起点","viewer.guided.beatLink":"复制当前故事时刻链接：第 {index}/{total} 个节点：{label}","viewer.guided.noStory":"此图表没有编写引导故事。","viewer.guide.eyebrow":"图表指南","viewer.guide.close":"关闭图表指南","viewer.guide.inspecting":"正在检查已编译语义","viewer.guide.actions":"图表探索操作","viewer.guide.find":"查找任意节点","viewer.guide.find.hint":"搜索标签、职责、类型和稳定 ID。","viewer.guide.route":"追踪路径","viewer.guide.route.aria":"追踪有向路径","viewer.guide.route.hint":"查看两个语义节点如何按编写方向连接。","viewer.guide.map":"查看完整系统","viewer.guide.map.hint":"打开带实时视口和稳定节点的语义雷达。","viewer.guide.lens":"比较语义类型","viewer.guide.lens.hint":"统计角色、显示流量并比较直接编写的连接。","viewer.guide.story":"播放引导故事","viewer.guide.story.hint":"浏览已编写的章节和真实关系。","viewer.guide.present":"进入演示模式","viewer.guide.present.hint":"让实时图表占满视口，同时不改变导出。","viewer.guide.shortcuts":"其他键盘快捷键","viewer.guide.shortcut.export":"导出","viewer.guide.shortcut.theme":"主题","viewer.guide.shortcut.style":"风格","viewer.guide.shortcut.reset":"重置","viewer.guide.shortcut.zoomIn":"放大","viewer.guide.shortcut.zoomOut":"缩小","viewer.guide.shortcut.close":"关闭","viewer.guide.facts":"{nodes} · {relationships} · {views}","viewer.guide.fact.node.one":"{count} 个语义节点","viewer.guide.fact.node.other":"{count} 个语义节点","viewer.guide.fact.relationship.one":"{count} 条关系","viewer.guide.fact.relationship.other":"{count} 条关系","viewer.guide.fact.view.one":"{count} 个引导视图","viewer.guide.fact.view.other":"{count} 个引导视图","viewer.guide.story.available.one":"浏览 {count} 个已编写章节及其真实关系。","viewer.guide.story.available.other":"浏览 {count} 个已编写章节及其真实关系。","viewer.guide.story.unavailable":"此图表没有编写引导故事。","viewer.guide.open":"打开图表指南","viewer.guide.noStory":"此图表没有编写引导故事。","viewer.finder.title":"查找节点","viewer.finder.close":"关闭节点查找器","viewer.finder.placeholder":"搜索标签或 ID","viewer.finder.search":"搜索图表节点","viewer.finder.results":"图表节点","viewer.finder.empty":"没有匹配的节点","viewer.finder.result.focus":"聚焦{label}","viewer.finder.result.routeStart":"选择{label}作为路径起点","viewer.finder.result.routeTarget":"选择{label}作为路径终点，{links}","viewer.finder.status.empty":"没有匹配的节点","viewer.finder.status.count.one":"{count} 个匹配节点","viewer.finder.status.count.other":"{count} 个匹配节点","viewer.finder.noun.nodes":"个节点","viewer.finder.link.one":"{count} 条连接","viewer.finder.link.other":"{count} 条连接","viewer.finder.result.focus.one":"聚焦{label}，{count} 条相关连接","viewer.finder.result.focus.other":"聚焦{label}，{count} 条相关连接","viewer.finder.status.filtered":"{visible}/{available} {noun}","viewer.finder.status.all":"{available} {noun}","viewer.passport.eyebrow":"语义护照","viewer.passport.metadata":"节点元数据","viewer.passport.evidence":"已验证的源代码证据","viewer.passport.verified":"已验证来源","viewer.passport.verificationScope":"已按固定修订版本验证本地 Git 证据，未检查远程访问权限。","viewer.passport.reach":"编写可达范围","viewer.passport.reach.trace":"追踪编写的可达性","viewer.passport.upstream":"上游","viewer.passport.downstream":"下游","viewer.passport.upstream.trace":"追踪上游编写可达性","viewer.passport.downstream.trace":"追踪下游编写可达性","viewer.passport.close":"关闭语义护照","viewer.passport.move":"移动语义护照。可拖动、使用方向键移动，或按 Home 恢复自动位置。","viewer.passport.copy":"复制链接","viewer.passport.copy.focus":"复制聚焦节点的链接","viewer.passport.relations":"关系","viewer.passport.relations.show":"显示关联关系","viewer.passport.relations.hide":"隐藏关联关系","viewer.passport.relations.list":"关联关系","viewer.passport.copyRelation":"复制关系","viewer.passport.copyNode":"复制节点","viewer.passport.copyPinned":"复制固定关系的链接","viewer.passport.copySource":"复制来源节点的链接","viewer.passport.copy.focused.success":"已复制聚焦节点链接","viewer.passport.copy.pinned.success":"已复制固定关系链接","viewer.passport.copy.focused.failed":"无法复制聚焦节点链接","viewer.passport.copy.pinned.failed":"无法复制固定关系链接","viewer.passport.relationship.none":"没有关联关系","viewer.passport.relationship.count.one":"{count} 条关系","viewer.passport.relationship.count.other":"{count} 条关系","viewer.passport.relationship.show.one":"显示 {count} 条关联关系","viewer.passport.relationship.show.other":"显示 {count} 条关联关系","viewer.passport.relationship.summary":"{out} 条出向 · {in} 条入向{loops}","viewer.passport.relationship.loops":" · {count} 条自环","viewer.passport.relationship.explorer":"直接关系浏览器","viewer.passport.relationship.help":"使用方向键浏览关系。按 Enter 或空格键固定详情；按 Escape 清除。","viewer.passport.relationship.loopsBack":"回环","viewer.passport.relationship.connectsTo":"连接到","viewer.passport.relationship.connectsFrom":"连接自","viewer.passport.relationship.pinned":"已固定关系 · {from} → {to} · {label}","viewer.passport.relationship.inspect":"检查第 {index}/{total} 条关系：{from} 到 {to}，{label}。按 Enter 查看详情。","viewer.passport.relationship.group.out":"出向","viewer.passport.relationship.group.in":"入向","viewer.passport.relationship.group.loop":"自环","viewer.passport.relationship.row":"{group}：{relationship}，{neighbor}","viewer.passport.relationship.direction.out":"出 →","viewer.passport.relationship.direction.in":"← 入","viewer.passport.relationship.direction.loop":"自环","viewer.passport.sourceCount.one":"{count} 个已验证来源引用","viewer.passport.sourceCount.other":"{count} 个已验证来源引用","viewer.passport.sourceMarker":"来源","viewer.passport.beacon.one":"{count} 个已验证来源；聚焦此节点以检查","viewer.passport.beacon.other":"{count} 个已验证来源；聚焦此节点以检查","viewer.passport.repository.open":"打开已验证的仓库修订版本 {revision}","viewer.passport.source.open":"打开修订版本 {revision} 中已验证的来源 {path}","viewer.passport.source.openLink":"打开 ↗","viewer.passport.reach.upstream.one":"追踪 {count} 个上游编写节点","viewer.passport.reach.upstream.other":"追踪 {count} 个上游编写节点","viewer.passport.reach.downstream.one":"追踪 {count} 个下游编写节点","viewer.passport.reach.downstream.other":"追踪 {count} 个下游编写节点","viewer.passport.reach.noUpstream":"没有上游编写节点","viewer.passport.reach.noDownstream":"没有下游编写节点","viewer.passport.reach.status":"{direction} · {nodes} 个节点 · {links} 条连接 · 最深 {hops} 跳","viewer.route.eyebrow":"路径探测","viewer.route.start":"选择起点节点","viewer.route.start.find":"查找起点","viewer.route.start.find.aria":"查找路径起点","viewer.route.copy":"复制链接","viewer.route.copy.aria":"复制已追踪路径的链接","viewer.route.clear":"清除","viewer.route.clear.aria":"清除路径探测","viewer.route.traced":"已追踪路径","viewer.route.pickTwo":"在图表中选择两个语义节点","viewer.route.pickOne":"在图表中选择一个语义节点","viewer.route.controls":"路径旅程控制","viewer.route.previous":"上一个路径位置","viewer.route.play":"播放路径旅程","viewer.route.pause":"暂停路径旅程","viewer.route.replay":"重播路径旅程","viewer.route.next":"下一个路径位置","viewer.route.journey":"旅程","viewer.route.pause.label":"暂停","viewer.route.replay.label":"重播","viewer.route.overview":"总览","viewer.route.overview.aria":"显示完整路径总览","viewer.route.instructions":"先选择来源，再选择目标；方向很重要。","viewer.route.destination":"选择从{label}出发的目标","viewer.route.destination.find":"查找目标","viewer.route.destination.find.aria":"查找可达的路径目标","viewer.route.differentDestination":"选择其他目标","viewer.route.distinct":"一条路径需要两个不同的语义节点。","viewer.route.unreachable":"没有通往{label}的有向路径","viewer.route.unreachable.detail":"从{source}无法到达{target}。请选择高亮的目标。","viewer.route.start.instructions":"选择来源。下一步只会显示有向可达的目标。","viewer.route.copy.success":"已复制路径链接","viewer.route.copy.failed":"无法复制路径链接","viewer.route.position":"路径位置 {index}/{total}：{label}","viewer.route.step":"第 {index}/{total} 步 · {phase} · {label}","viewer.route.motionRequired":"自动旅程需要动态模式","viewer.route.trigger.clear":"清除已追踪路径","viewer.route.overview.status":"{nodes} · {hops} · 最短编写路径","viewer.route.overview.node.one":"{count} 个节点","viewer.route.overview.node.other":"{count} 个节点","viewer.route.overview.hop.one":"{count} 个有向跳转","viewer.route.overview.hop.other":"{count} 个有向跳转","viewer.route.phase.playing":"播放中","viewer.route.phase.complete":"已完成","viewer.route.phase.inspecting":"检查中","viewer.route.destination.count.one":"有 {count} 个有向目标可用。请选择高亮节点。","viewer.route.destination.count.other":"有 {count} 个有向目标可用。请选择高亮节点。","viewer.route.noOutgoing":"此处没有可用的出向路径。请清除后选择其他来源。","viewer.route.result.title":"{source} 到 {target}","viewer.route.finder.source.title":"选择路径起点","viewer.route.finder.source.placeholder":"搜索路径来源","viewer.route.finder.source.empty":"没有匹配的路径来源","viewer.route.finder.source.results":"可作为路径起点的节点","viewer.route.finder.source.noun":"个路径来源","viewer.route.finder.source.badge":"起点","viewer.route.finder.target.title":"从{label}出发的目标","viewer.route.finder.target.placeholder":"搜索可达目标","viewer.route.finder.target.empty":"没有匹配的可达目标","viewer.route.finder.target.results":"可达路径目标","viewer.route.finder.target.noun":"个可达目标","viewer.route.hop.one":"{count} 跳","viewer.route.hop.other":"{count} 跳","viewer.lens.eyebrow":"语义透镜","viewer.lens.title":"比较系统角色","viewer.lens.close":"关闭语义透镜","viewer.lens.instruction":"最多选择两种语义类型。选择一种可显示其真实流量；选择两种只比较直接编写的关系。","viewer.lens.kinds":"语义类型","viewer.lens.choose":"选择一种类型以检查其节点和相连关系。","viewer.lens.copy":"复制语义透镜链接","viewer.lens.clear":"清除语义透镜","viewer.lens.open":"打开语义透镜","viewer.lens.openActive":"打开当前语义透镜","viewer.lens.legend":"语义图例","viewer.lens.legend.inspect.one":"检查{label}，{count} 个节点","viewer.lens.legend.inspect.other":"检查{label}，{count} 个节点","viewer.lens.kind.count.one":"{label}，{count} 个节点","viewer.lens.kind.count.other":"{label}，{count} 个节点","viewer.lens.compare.one":"{first} → {second}：{forward} · {second} → {first}：{reverse} · 共 {count} 条直接关系","viewer.lens.compare.other":"{first} → {second}：{forward} · {second} → {first}：{reverse} · 共 {count} 条直接关系","viewer.lens.single":"{nodes} · {relationships} · 已连接节点保持可见","viewer.lens.node.one":"{count} 个{label}节点","viewer.lens.node.other":"{count} 个{label}节点","viewer.lens.relationship.one":"{count} 条相连关系","viewer.lens.relationship.other":"{count} 条相连关系","viewer.radar.title":"语义雷达","viewer.radar.building":"正在构建总览","viewer.radar.openFull":"打开完整语义雷达","viewer.radar.open":"打开雷达","viewer.radar.close":"关闭语义雷达","viewer.radar.surface":"图表总览。点击节点进行聚焦，或使用方向键平移。","viewer.radar.click":"点击节点","viewer.radar.drag":"拖动平移","viewer.radar.space":"语义雷达需要更多地图可见空间。","viewer.radar.nodes":"语义图表雷达节点","viewer.radar.focus":"从语义雷达聚焦{label}","viewer.radar.status":"{count} 个节点 · {viewport}","viewer.radar.fullMap":"{count} 个节点 · 完整地图","viewer.radar.compacted":"已收紧雷达，避免遮挡语义护照或地图控件。","viewer.radar.cancelWaiting":"取消等待更多地图空间的语义雷达","viewer.radar.needsSpace":"语义雷达需要更多可见地图空间","viewer.radar.viewport.full":"完整地图","viewer.radar.viewport.width":"宽度 {percent}%","viewer.radar.viewport.scale":"视口 {percent}%","viewer.nav.controls":"图表视图控制","viewer.nav.route":"追踪有向路径","viewer.nav.route.title":"追踪路径（R）","viewer.nav.route.short":"路径","viewer.nav.radar":"打开语义雷达","viewer.nav.radar.title":"语义雷达（M）","viewer.nav.radar.short":"地图","viewer.nav.lens":"打开语义透镜","viewer.nav.lens.title":"语义透镜（L）","viewer.nav.lens.short":"透镜","viewer.nav.find":"查找节点","viewer.nav.find.title":"查找节点（/）","viewer.nav.guide":"打开图表指南","viewer.nav.guide.title":"图表指南（?）","viewer.nav.zoomOut":"缩小","viewer.nav.zoomOut.title":"缩小（-）","viewer.nav.reset":"重置图表视图","viewer.nav.reset.title":"重置视图（0）","viewer.nav.read":"阅读","viewer.nav.zoomIn":"放大","viewer.nav.zoomIn.title":"放大（+）","viewer.nav.camera":"{hint}。重置图表视图","viewer.nav.camera.title":"{semantic}{hint} · 重置视图（0）","viewer.nav.camera.semantic":"语义相机已启用 · ","viewer.camera.surface":"交互式图表画布。使用方向键平移。","viewer.nav.level.map":"概览","viewer.nav.level.read":"阅读","viewer.nav.level.full":"完整","viewer.nav.level.auto":"自动","viewer.nav.detail.map":"放大以显示关系标签和节点上下文","viewer.nav.detail.read":"再次放大以显示标签和注释","viewer.nav.detail.full":"完整图表详情","viewer.intent.summary":"{label}。{out} 条出向，{in} 条入向{loops}。共 {total} 条连接。按 Enter 查看详情。","viewer.intent.loops":"，{count} 条自环","viewer.common.copied":"已复制","viewer.common.copyFailed":"复制失败","viewer.common.copyLink":"复制链接","viewer.common.clear":"清除","viewer.common.close":"关闭"}}</script>
     <div class="guided-views no-print" id="guided-views" hidden aria-label="图表引导视图">
       <button id="guided-view-prev" type="button" aria-label="上一个引导视图" title="上一个引导视图（[）">&#8592;</button>
       <div class="guided-view-copy">
@@ -5213,7 +5212,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <polygon points="0 0, 10 3.5, 0 7" class="m-dashed" />
           </marker>
           <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" class="c-grid" stroke-width="0.5"/>
+            <circle cx="20" cy="20" r="1" class="c-grid"/>
           </pattern>
         </defs>
 
@@ -6081,7 +6080,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="241" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点10负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1511" y="241" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点10负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="258" class="t-muted" font-size="8" text-anchor="middle">lane 2 · phase 3</text>
         </g>
 
@@ -6137,7 +6136,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1038 352) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="367" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点15负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1183" y="367" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点15负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="384" class="t-muted" font-size="8" text-anchor="middle">lane 3 · phase 2</text>
         </g>
 
@@ -6195,7 +6194,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="493" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点20负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="855" y="493" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点20负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="510" class="t-muted" font-size="8" text-anchor="middle">lane 4 · phase 2</text>
         </g>
 
@@ -6253,7 +6252,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(382 604) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="619" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点25负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="527" y="619" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点25负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="636" class="t-muted" font-size="8" text-anchor="middle">lane 5 · phase 1</text>
         </g>
 
@@ -6311,7 +6310,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="745" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点30负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="199" y="745" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点30负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="762" class="t-muted" font-size="8" text-anchor="middle">lane 6 · phase 1</text>
         </g>
 
@@ -6381,7 +6380,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="745" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点35负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1839" y="745" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点35负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="762" class="t-muted" font-size="8" text-anchor="middle">lane 6 · phase 3</text>
         </g>
 
@@ -6451,7 +6450,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="871" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点40负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1511" y="871" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点40负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="888" class="t-muted" font-size="8" text-anchor="middle">lane 7 · phase 3</text>
         </g>
 
@@ -6513,7 +6512,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="997" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点45负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1183" y="997" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点45负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="1014" class="t-muted" font-size="8" text-anchor="middle">lane 8 · phase 2</text>
         </g>
 
@@ -6570,7 +6569,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(710 1108) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="1123" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点50负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="855" y="1123" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点50负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="1140" class="t-muted" font-size="8" text-anchor="middle">lane 9 · phase 2</text>
         </g>
 
@@ -6627,7 +6626,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="1249" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点55负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="527" y="1249" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点55负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="1266" class="t-muted" font-size="8" text-anchor="middle">lane 10 · phase 1</text>
         </g>
 
@@ -6686,7 +6685,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(54 1360) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="1375" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点60负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="199" y="1375" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点60负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="1392" class="t-muted" font-size="8" text-anchor="middle">lane 11 · phase 1</text>
         </g>
 
@@ -6741,7 +6740,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1694 1360) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="1375" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点65负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1839" y="1375" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点65负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="1392" class="t-muted" font-size="8" text-anchor="middle">lane 11 · phase 3</text>
         </g>
 
@@ -6811,7 +6810,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="1501" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点70负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1511" y="1501" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点70负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="1518" class="t-muted" font-size="8" text-anchor="middle">lane 12 · phase 3</text>
         </g>
 
@@ -6881,7 +6880,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="1627" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点75负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1183" y="1627" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点75负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="1644" class="t-muted" font-size="8" text-anchor="middle">lane 13 · phase 2</text>
         </g>
 
@@ -6945,7 +6944,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="1753" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点80负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="855" y="1753" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点80负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="1770" class="t-muted" font-size="8" text-anchor="middle">lane 14 · phase 2</text>
         </g>
 
@@ -7003,7 +7002,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(382 1864) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="1879" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点85负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="527" y="1879" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点85负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="1896" class="t-muted" font-size="8" text-anchor="middle">lane 15 · phase 1</text>
         </g>
 
@@ -7059,7 +7058,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="2005" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点90负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="199" y="2005" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点90负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="2022" class="t-muted" font-size="8" text-anchor="middle">lane 16 · phase 1</text>
         </g>
 
@@ -7119,7 +7118,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="2005" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点95负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1839" y="2005" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点95负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="2022" class="t-muted" font-size="8" text-anchor="middle">lane 16 · phase 3</text>
         </g>
 
@@ -7174,7 +7173,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1366 2116) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="2131" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点100负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="2131" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点100负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="2148" class="t-muted" font-size="8" text-anchor="middle">lane 17 · phase 3</text>
         </g>
 
@@ -7241,7 +7240,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="2257" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点105负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="2257" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点105负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="2274" class="t-muted" font-size="8" text-anchor="middle">lane 18 · phase 2</text>
         </g>
 
@@ -7311,7 +7310,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="2383" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点110负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="2383" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点110负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="2400" class="t-muted" font-size="8" text-anchor="middle">lane 19 · phase 2</text>
         </g>
 
@@ -7377,7 +7376,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="2509" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点115负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="2509" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点115负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="2526" class="t-muted" font-size="8" text-anchor="middle">lane 20 · phase 1</text>
         </g>
 
@@ -7436,7 +7435,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(54 2620) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="2635" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点120负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="2635" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点120负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="2652" class="t-muted" font-size="8" text-anchor="middle">lane 21 · phase 1</text>
         </g>
 
@@ -7491,7 +7490,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1694 2620) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="2635" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点125负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="2635" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点125负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="2652" class="t-muted" font-size="8" text-anchor="middle">lane 21 · phase 3</text>
         </g>
 
@@ -7551,7 +7550,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="2761" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点130负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="2761" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点130负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="2778" class="t-muted" font-size="8" text-anchor="middle">lane 22 · phase 3</text>
         </g>
 
@@ -7607,7 +7606,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1038 2872) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="2887" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点135负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="2887" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点135负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="2904" class="t-muted" font-size="8" text-anchor="middle">lane 23 · phase 2</text>
         </g>
 
@@ -7671,7 +7670,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="3013" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点140负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="3013" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点140负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="3030" class="t-muted" font-size="8" text-anchor="middle">lane 24 · phase 2</text>
         </g>
 
@@ -7741,7 +7740,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="3139" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点145负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="3139" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点145负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="3156" class="t-muted" font-size="8" text-anchor="middle">lane 25 · phase 1</text>
         </g>
 
@@ -7809,7 +7808,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="3265" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点150负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="3265" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点150负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="3282" class="t-muted" font-size="8" text-anchor="middle">lane 26 · phase 1</text>
         </g>
 
@@ -7869,7 +7868,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="3265" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点155负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="3265" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点155负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="3282" class="t-muted" font-size="8" text-anchor="middle">lane 26 · phase 3</text>
         </g>
 
@@ -7924,7 +7923,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1366 3376) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="3391" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点160负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="3391" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点160负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="3408" class="t-muted" font-size="8" text-anchor="middle">lane 27 · phase 3</text>
         </g>
 
@@ -7983,7 +7982,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="3517" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点165负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="3517" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点165负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="3534" class="t-muted" font-size="8" text-anchor="middle">lane 28 · phase 2</text>
         </g>
 
@@ -8040,7 +8039,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(710 3628) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="3643" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点170负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="3643" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点170负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="3660" class="t-muted" font-size="8" text-anchor="middle">lane 29 · phase 2</text>
         </g>
 
@@ -8101,7 +8100,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="3769" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点175负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="3769" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点175负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="3786" class="t-muted" font-size="8" text-anchor="middle">lane 30 · phase 1</text>
         </g>
 
@@ -8171,7 +8170,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="3895" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点180负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="3895" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点180负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="3912" class="t-muted" font-size="8" text-anchor="middle">lane 31 · phase 1</text>
         </g>
 
@@ -8241,7 +8240,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="3895" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点185负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="3895" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点185负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="3912" class="t-muted" font-size="8" text-anchor="middle">lane 31 · phase 3</text>
         </g>
 
@@ -8301,7 +8300,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="4021" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点190负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="4021" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点190负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="4038" class="t-muted" font-size="8" text-anchor="middle">lane 32 · phase 3</text>
         </g>
 
@@ -8357,7 +8356,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1038 4132) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="4147" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点195负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="4147" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点195负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="4164" class="t-muted" font-size="8" text-anchor="middle">lane 33 · phase 2</text>
         </g>
 
@@ -8415,7 +8414,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="4273" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点200负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="4273" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点200负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="4290" class="t-muted" font-size="8" text-anchor="middle">lane 34 · phase 2</text>
         </g>
 
@@ -8473,7 +8472,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(382 4384) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="4399" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点205负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="4399" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点205负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="4416" class="t-muted" font-size="8" text-anchor="middle">lane 35 · phase 1</text>
         </g>
 
@@ -8531,7 +8530,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="4525" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点210负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="4525" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点210负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="4542" class="t-muted" font-size="8" text-anchor="middle">lane 36 · phase 1</text>
         </g>
 
@@ -8601,7 +8600,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="4525" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点215负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="4525" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点215负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="4542" class="t-muted" font-size="8" text-anchor="middle">lane 36 · phase 3</text>
         </g>
 
@@ -8671,7 +8670,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="4651" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点220负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="4651" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点220负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="4668" class="t-muted" font-size="8" text-anchor="middle">lane 37 · phase 3</text>
         </g>
 
@@ -8733,7 +8732,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="4777" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点225负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="4777" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点225负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="4794" class="t-muted" font-size="8" text-anchor="middle">lane 38 · phase 2</text>
         </g>
 
@@ -8790,7 +8789,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(710 4888) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="4903" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点230负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="4903" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点230负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="4920" class="t-muted" font-size="8" text-anchor="middle">lane 39 · phase 2</text>
         </g>
 
@@ -8847,7 +8846,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="5029" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点235负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="5029" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点235负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="5046" class="t-muted" font-size="8" text-anchor="middle">lane 40 · phase 1</text>
         </g>
 
@@ -8906,7 +8905,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(54 5140) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="5155" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点240负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="5155" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点240负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="5172" class="t-muted" font-size="8" text-anchor="middle">lane 41 · phase 1</text>
         </g>
 
@@ -8961,7 +8960,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1694 5140) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="5155" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点245负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="5155" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点245负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="5172" class="t-muted" font-size="8" text-anchor="middle">lane 41 · phase 3</text>
         </g>
 
@@ -9031,7 +9030,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="5281" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点250负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="5281" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点250负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="5298" class="t-muted" font-size="8" text-anchor="middle">lane 42 · phase 3</text>
         </g>
 
@@ -9101,7 +9100,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="5407" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点255负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="5407" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点255负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="5424" class="t-muted" font-size="8" text-anchor="middle">lane 43 · phase 2</text>
         </g>
 
@@ -9165,7 +9164,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="5533" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点260负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="5533" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点260负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="5550" class="t-muted" font-size="8" text-anchor="middle">lane 44 · phase 2</text>
         </g>
 
@@ -9223,7 +9222,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(382 5644) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="5659" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点265负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="5659" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点265负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="5676" class="t-muted" font-size="8" text-anchor="middle">lane 45 · phase 1</text>
         </g>
 
@@ -9279,7 +9278,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="198" y="5785" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点270负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="202.3" y="5785" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点270负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="198" y="5802" class="t-muted" font-size="8" text-anchor="middle">lane 46 · phase 1</text>
         </g>
 
@@ -9339,7 +9338,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1838" y="5785" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点275负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1842.3" y="5785" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点275负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1838" y="5802" class="t-muted" font-size="8" text-anchor="middle">lane 46 · phase 3</text>
         </g>
 
@@ -9394,7 +9393,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <g aria-hidden="true" data-semantic-sigil="cloud" class="semantic-sigil s-cloud" transform="translate(1366 5896) scale(0.6875)">
             <path d="M4.3 12.5h7.3a2.4 2.4 0 0 0 .2-4.8 4 4 0 0 0-7.5-1.3A3.1 3.1 0 0 0 4.3 12.5Z"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1510" y="5911" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点280负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1514.3" y="5911" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点280负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1510" y="5928" class="t-muted" font-size="8" text-anchor="middle">lane 47 · phase 3</text>
         </g>
 
@@ -9461,7 +9460,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="10.5" cy="8" r="1" class="sigil-fill"/>
             <circle cx="7" cy="11.5" r="1" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="1182" y="6037" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点285负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="1186.3" y="6037" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点285负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="1182" y="6054" class="t-muted" font-size="8" text-anchor="middle">lane 48 · phase 2</text>
         </g>
 
@@ -9531,7 +9530,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="854" y="6163" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点290负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="858.3" y="6163" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点290负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="854" y="6180" class="t-muted" font-size="8" text-anchor="middle">lane 49 · phase 2</text>
         </g>
 
@@ -9597,7 +9596,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="526" y="6289" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点295负责跨模块一致性校验与完整证据交付</text>
+          <text data-node-label="" data-detail-anchor="" x="530.3" y="6289" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">节点295负责跨模块一致性校验与完整证据交付</text>
           <text data-detail="context" x="526" y="6306" class="t-muted" font-size="8" text-anchor="middle">lane 50 · phase 1</text>
         </g>
 
@@ -11105,6 +11104,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         // canvas upscaling.
         clone.setAttribute('width', vb.width * scale);
         clone.setAttribute('height', vb.height * scale);
+        // Keep copied Viewer layout rules from overriding the export's size.
+        clone.style.width = vb.width * scale + 'px';
+        clone.style.height = vb.height * scale + 'px';
+        clone.style.minWidth = '0';
         clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 
         // Only the SVG-relevant rules: semantic classes, markers, and the
@@ -16343,6 +16346,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           container && svg && nav &&
           window.innerWidth > 720 &&
           html.getAttribute('data-embed') !== 'true' &&
+          !nav.hasAttribute('data-viewport-docked') &&
           (!window.matchMedia || !window.matchMedia('print').matches) &&
           visible(nav)
         );
@@ -16403,7 +16407,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       function measure() {
         frame = 0;
         if (probingBaseline) return null;
-        if (!eligible()) return clear({ preserveBaseline: !cameraAtBaseline() });
+        if (!eligible()) {
+          var temporaryViewerMode = html.getAttribute('data-embed') === 'true' ||
+            Boolean(window.matchMedia && window.matchMedia('print').matches);
+          return clear({ preserveBaseline: temporaryViewerMode || !cameraAtBaseline() });
+        }
 
         /* Camera transforms enlarge and translate authored paint inside the
            fixed, clipped root SVG viewport. They must not redefine the
@@ -16577,6 +16585,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var resetDetailLabel = resetBtn.querySelector('[data-view-detail]');
       var resetPercentLabel = resetBtn.querySelector('[data-view-percent]');
       var inBtn = container.querySelector('[data-view="in"]');
+      var navigation = container.querySelector('.diagram-nav');
       var MIN_SCALE = 0.25;
       var MAX_SCALE = 4;
       var CAMERA_LIMIT = 1000000;
@@ -16588,9 +16597,25 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var cameraGeneration = 0;
       var cameraTransaction = null;
       var clipFrame = 0;
+      var interactionFrame = 0;
+      var interactionChangesScale = false;
+      var keyboardFrame = 0;
+      var keyboardStartedAt = 0;
+      var keyboardShift = false;
+      var keyboardDirections = Object.create(null);
       var resizeFrame = 0;
       var autoScrollUntil = 0;
       var wheelTimer = null;
+      var wheelGeometry = null;
+      var wheelMode = '';
+      var wheelPanFrame = 0;
+      var wheelPanTimestamp = 0;
+      var wheelPanTarget = null;
+      var wheelPanInputEnded = false;
+      var deferInterruptApply = false;
+      var suppressContextMenuUntil = 0;
+      var lastControlKey = '';
+      var interactionMetrics = { offsetLeft: 0, offsetTop: 0, width: 1, height: 1 };
 
       var viewBox = svg.viewBox && svg.viewBox.baseVal;
 
@@ -16598,13 +16623,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       grid.setAttribute('aria-hidden', 'true');
       container.insertBefore(grid, svg);
 
+      function clampCameraCoordinate(value) {
+        return Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(value) || 0));
+      }
       function boundCamera() {
         state.scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, Number(state.scale) || 1));
-        state.x = Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(state.x) || 0));
-        state.y = Math.max(-CAMERA_LIMIT, Math.min(CAMERA_LIMIT, Number(state.y) || 0));
+        state.x = clampCameraCoordinate(state.x);
+        state.y = clampCameraCoordinate(state.y);
       }
       function mobileScrollMode() {
         return window.innerWidth <= 720 && container.hasAttribute('data-wide-diagram');
+      }
+      function syncPointerGesturePolicy() {
+        container.style.touchAction = mobileScrollMode() ? 'pan-x pan-y' : 'none';
       }
       function reducedMotion() {
         return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -16670,6 +16701,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         var semantic = state.mode === 'semantic' && state.scale > 1.01;
         var detail = detailLevel();
         var percent = Math.round(state.scale * 100) + '%';
+        var controlKey = [state.mode, semantic, detail, percent].join('|');
+        if (controlKey === lastControlKey) return;
+        lastControlKey = controlKey;
         var levelLabel = viewerText('viewer.nav.level.' + detail);
         var detailHint = detail === 'map'
           ? viewerText('viewer.nav.detail.map')
@@ -16694,22 +16728,23 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         container.setAttribute('data-camera-mode', state.mode);
         container.setAttribute('data-camera-indicator', semantic ? 'true' : 'false');
       }
-      function clipToViewport(camera) {
+      function clipToViewport(camera, metrics) {
         camera = camera || state;
         if (camera.scale <= 1.001) {
-          svg.style.removeProperty('clip-path');
+          if (svg.style.clipPath) svg.style.removeProperty('clip-path');
           return;
         }
-        var width = svg.clientWidth || 1;
-        var height = svg.clientHeight || 1;
+        var width = metrics ? metrics.width : (svg.clientWidth || 1);
+        var height = metrics ? metrics.height : (svg.clientHeight || 1);
         var scale = camera.scale;
         var top = Math.max(0, Math.min(height, -camera.y / scale));
         var left = Math.max(0, Math.min(width, -camera.x / scale));
         var right = Math.max(0, Math.min(width, width - (width - camera.x) / scale));
         var bottom = Math.max(0, Math.min(height, height - (height - camera.y) / scale));
-        svg.style.clipPath = 'inset(' + [top, right, bottom, left].map(function (value) {
+        var nextClip = 'inset(' + [top, right, bottom, left].map(function (value) {
           return Math.round(value * 1000) / 1000 + 'px';
         }).join(' ') + ')';
+        if (svg.style.clipPath !== nextClip) svg.style.clipPath = nextClip;
       }
       function cameraSettled(rendered) {
         return Math.abs(rendered.scale - state.scale) < 0.001 &&
@@ -16727,26 +16762,151 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         sample();
       }
-      function apply() {
+      function apply(options) {
+        options = options || {};
         boundCamera();
         svg.style.transform = 'translate(' + state.x + 'px,' + state.y + 'px) scale(' + state.scale + ')';
-        container.style.setProperty('--archify-camera-x', state.x + 'px');
-        container.style.setProperty('--archify-camera-y', state.y + 'px');
-        container.style.setProperty('--archify-camera-scale', String(state.scale));
-        container.style.setProperty('--archify-grid-x', (state.x + (svg.offsetLeft || 0)) + 'px');
-        container.style.setProperty('--archify-grid-y', (state.y + (svg.offsetTop || 0)) + 'px');
-        container.style.setProperty('--archify-grid-minor', (24 * state.scale) + 'px');
-        container.style.setProperty('--archify-grid-major', (120 * state.scale) + 'px');
-        syncViewportClip();
+        var offsetLeft = options.interactive === true ? interactionMetrics.offsetLeft : (svg.offsetLeft || 0);
+        var offsetTop = options.interactive === true ? interactionMetrics.offsetTop : (svg.offsetTop || 0);
+        syncGrid(offsetLeft, offsetTop, options.gridPositionOnly === true);
+        if (options.interactive === true && clipFrame) {
+          cancelAnimationFrame(clipFrame);
+          clipFrame = 0;
+        }
+        if (options.cameraOnly === true) return;
+        if (options.interactive !== true) {
+          syncViewportClip();
+        }
         renderControls();
         outBtn.disabled = state.scale <= MIN_SCALE;
         inBtn.disabled = state.scale >= MAX_SCALE;
         container.classList.toggle('is-pannable', !mobileScrollMode());
         svg.setAttribute('data-view-scale', String(state.scale));
-        if (Archify.radar && typeof Archify.radar.sync === 'function') Archify.radar.sync();
-        if (Archify.viewerChromeLayout && typeof Archify.viewerChromeLayout.schedule === 'function') {
-          Archify.viewerChromeLayout.schedule();
+        if (options.interactive !== true) {
+          if (Archify.radar && typeof Archify.radar.sync === 'function') Archify.radar.sync();
+          if (Archify.viewerChromeLayout && typeof Archify.viewerChromeLayout.schedule === 'function') {
+            Archify.viewerChromeLayout.schedule();
+          }
         }
+      }
+      function syncGrid(offsetLeft, offsetTop, positionOnly) {
+        offsetLeft = Number.isFinite(offsetLeft) ? offsetLeft : (svg.offsetLeft || 0);
+        offsetTop = Number.isFinite(offsetTop) ? offsetTop : (svg.offsetTop || 0);
+        container.style.setProperty('--archify-grid-x', (state.x + offsetLeft) + 'px');
+        container.style.setProperty('--archify-grid-y', (state.y + offsetTop) + 'px');
+        if (positionOnly) return;
+        container.style.setProperty('--archify-grid-minor', (24 * state.scale) + 'px');
+        container.style.setProperty('--archify-grid-major', (120 * state.scale) + 'px');
+      }
+      function scheduleInteractionApply(changesScale) {
+        if (changesScale === true) interactionChangesScale = true;
+        if (interactionFrame) return;
+        interactionFrame = requestAnimationFrame(function () {
+          interactionFrame = 0;
+          apply({ interactive: true, cameraOnly: true, gridPositionOnly: !interactionChangesScale });
+          interactionChangesScale = false;
+        });
+      }
+      function captureInteractionGeometry() {
+        interactionMetrics = {
+          offsetLeft: svg.offsetLeft || 0,
+          offsetTop: svg.offsetTop || 0,
+          width: svg.clientWidth || 1,
+          height: svg.clientHeight || 1
+        };
+        return container.getBoundingClientRect();
+      }
+      function flushInteractionApply() {
+        if (!interactionFrame) return;
+        cancelAnimationFrame(interactionFrame);
+        interactionFrame = 0;
+        apply({ interactive: true, cameraOnly: true, gridPositionOnly: !interactionChangesScale });
+        interactionChangesScale = false;
+      }
+      function settleInteraction() {
+        flushInteractionApply();
+        apply();
+      }
+      function keyboardDirectionActive() {
+        return keyboardDirections.ArrowLeft || keyboardDirections.ArrowRight ||
+          keyboardDirections.ArrowUp || keyboardDirections.ArrowDown;
+      }
+      function stopKeyboardPan() {
+        if (keyboardFrame) cancelAnimationFrame(keyboardFrame);
+        keyboardFrame = 0;
+        keyboardStartedAt = 0;
+        keyboardDirections = Object.create(null);
+        keyboardShift = false;
+        if (!container.classList.contains('is-keyboard-panning')) return;
+        settleInteraction();
+        container.classList.remove('is-keyboard-panning');
+      }
+      function stepKeyboardPan(timestamp) {
+        keyboardFrame = 0;
+        if (!keyboardDirectionActive()) {
+          stopKeyboardPan();
+          return;
+        }
+        var elapsed = keyboardStartedAt ? Math.min(32, timestamp - keyboardStartedAt) : 0;
+        keyboardStartedAt = timestamp;
+        var distance = (keyboardShift ? 1100 : 650) * elapsed / 1000;
+        var horizontal = (keyboardDirections.ArrowLeft ? 1 : 0) - (keyboardDirections.ArrowRight ? 1 : 0);
+        var vertical = (keyboardDirections.ArrowUp ? 1 : 0) - (keyboardDirections.ArrowDown ? 1 : 0);
+        state.x += horizontal * distance;
+        state.y += vertical * distance;
+        state.mode = 'manual';
+        apply({ interactive: true, cameraOnly: true, gridPositionOnly: true });
+        keyboardFrame = requestAnimationFrame(stepKeyboardPan);
+      }
+      function startKeyboardPan() {
+        if (container.classList.contains('is-keyboard-panning')) return;
+        if (container.classList.contains('is-wheel-moving')) finishWheelGesture(true);
+        interruptCamera('keyboard');
+        captureInteractionGeometry();
+        container.classList.add('is-keyboard-panning');
+        keyboardStartedAt = 0;
+        keyboardFrame = requestAnimationFrame(stepKeyboardPan);
+      }
+      function finishWheelGesture(commitPanTarget) {
+        if (wheelTimer) clearTimeout(wheelTimer);
+        wheelTimer = null;
+        if (wheelPanFrame) cancelAnimationFrame(wheelPanFrame);
+        wheelPanFrame = 0;
+        wheelPanTimestamp = 0;
+        if (commitPanTarget && wheelPanTarget) {
+          state.x = wheelPanTarget.x;
+          state.y = wheelPanTarget.y;
+          state.mode = 'manual';
+          apply({ interactive: true, cameraOnly: true, gridPositionOnly: true });
+          try { getComputedStyle(svg).transform; } catch (_) {}
+        }
+        settleInteraction();
+        container.classList.remove('is-wheel-moving');
+        wheelGeometry = null;
+        wheelMode = '';
+        wheelPanTarget = null;
+        wheelPanInputEnded = false;
+        if (Archify.focus && Archify.focus.reposition) Archify.focus.reposition();
+      }
+      function stepWheelPan(timestamp) {
+        wheelPanFrame = 0;
+        if (!wheelPanTarget || wheelMode !== 'pan') return;
+        var elapsed = wheelPanTimestamp ? Math.min(32, timestamp - wheelPanTimestamp) : 16.67;
+        wheelPanTimestamp = timestamp;
+        var blend = 1 - Math.exp(-elapsed / 35);
+        state.x += (wheelPanTarget.x - state.x) * blend;
+        state.y += (wheelPanTarget.y - state.y) * blend;
+        state.mode = 'manual';
+        var remaining = Math.abs(wheelPanTarget.x - state.x) + Math.abs(wheelPanTarget.y - state.y);
+        if (wheelPanInputEnded && remaining < 0.25) {
+          finishWheelGesture(true);
+          return;
+        }
+        apply({ interactive: true, cameraOnly: true, gridPositionOnly: true });
+        wheelPanFrame = requestAnimationFrame(stepWheelPan);
+      }
+      function scheduleWheelPan() {
+        if (!wheelPanFrame) wheelPanFrame = requestAnimationFrame(stepWheelPan);
       }
       function sampleRenderedState() {
         var transform = '';
@@ -16825,18 +16985,22 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         if (Archify.guidedViews && Archify.guidedViews.cancelHandoff) {
           Archify.guidedViews.cancelHandoff(reason || 'manual');
         }
+        flushInteractionApply();
         var rendered = sampleRenderedState();
         stopCameraMotion(reason || 'manual', false);
         state = rendered;
         state.mode = 'manual';
-        apply();
-        renderControls();
+        if (!deferInterruptApply) apply();
         if (Archify.guidedViews && Archify.guidedViews.isPlaying && Archify.guidedViews.isPlaying()) {
           Archify.guidedViews.pause();
         }
         if (Archify.routeProbe && Archify.routeProbe.isJourneyPlaying && Archify.routeProbe.isJourneyPlaying()) {
           Archify.routeProbe.pauseJourney({ preserveElapsed: true, reason: reason || 'manual' });
         }
+      }
+      function interruptCameraWithoutRender(reason) {
+        deferInterruptApply = true;
+        try { interruptCamera(reason); } finally { deferInterruptApply = false; }
       }
       function zoomAtLocal(next, anchorX, anchorY, options) {
         options = options || {};
@@ -16851,7 +17015,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         state.scale = next;
         state.x = anchorX - contentX * next;
         state.y = anchorY - contentY * next;
-        apply();
+        if (options.defer === true) scheduleInteractionApply(true);
+        else apply();
       }
       function zoom(next, options) {
         options = options || {};
@@ -16875,7 +17040,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         state.x += dx;
         state.y += dy;
         state.mode = 'manual';
-        apply();
+        if (options.defer === true) scheduleInteractionApply(false);
+        else apply();
         return true;
       }
       function reset(options) {
@@ -17087,6 +17253,31 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       function pinControls() {
         container.style.setProperty('--archify-scroll-x', container.scrollLeft + 'px');
       }
+      function syncNavigationDock() {
+        syncPointerGesturePolicy();
+        if (!navigation) return;
+        var rect = container.getBoundingClientRect();
+        var margin = window.innerWidth <= 720 ? 8 : 16;
+        var viewportEdge = window.innerHeight - margin;
+        var wasDocked = navigation.hasAttribute('data-viewport-docked');
+        var docked = !mobileScrollMode() && rect.top < viewportEdge &&
+          (rect.bottom > viewportEdge || (wasDocked && rect.bottom > 0));
+        var changed = wasDocked !== docked;
+        navigation.toggleAttribute('data-viewport-docked', docked);
+        if (docked) {
+          var visibleRight = Math.min(rect.right, window.innerWidth);
+          navigation.style.setProperty('--archify-nav-viewport-right', Math.max(margin, window.innerWidth - visibleRight + margin) + 'px');
+        } else {
+          navigation.style.removeProperty('--archify-nav-viewport-right');
+        }
+        if (changed && Archify.radar && typeof Archify.radar.sync === 'function') Archify.radar.sync();
+      }
+      function resetNavigationDockLatch() {
+        if (!navigation) return;
+        navigation.removeAttribute('data-viewport-docked');
+        navigation.style.removeProperty('--archify-nav-viewport-right');
+        syncNavigationDock();
+      }
       function onScroll() {
         pinControls();
         if (Archify.radar && typeof Archify.radar.sync === 'function') Archify.radar.sync();
@@ -17098,9 +17289,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         if (!drag) return;
         var moved = drag.moved;
         drag = null;
-        container.classList.remove('is-panning');
         try { container.releasePointerCapture(event.pointerId); } catch (_) {}
+        if (moved) settleInteraction();
+        container.classList.remove('is-panning');
         if (moved) {
+          suppressContextMenuUntil = Date.now() + 250;
           container.setAttribute('data-just-panned', 'true');
           setTimeout(function () { container.removeAttribute('data-just-panned'); }, 80);
         }
@@ -17108,17 +17301,30 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       function cameraControlTarget(target) {
         return target.closest('.diagram-nav, .focus-chip, .node-finder, .diagram-guide, .overview-map, .route-probe, .semantic-lens');
       }
-      function cameraInteractiveTarget(target) {
-        return target.closest('[data-node-id], [data-relationship-hit-key], [data-legend-kind], [role="button"], a, button, input, select, textarea');
+      function keyboardInputTarget(target) {
+        return target && target.closest && target.closest('input, select, textarea, [contenteditable="true"]');
+      }
+      function diagramInViewport() {
+        var rect = container.getBoundingClientRect();
+        return rect.bottom > 0 && rect.top < window.innerHeight && rect.right > 0 && rect.left < window.innerWidth;
       }
 
       inBtn.addEventListener('click', function () { zoom(state.scale + 0.25); });
       outBtn.addEventListener('click', function () { zoom(state.scale - 0.25); });
       resetBtn.addEventListener('click', reset);
+      if (!container.hasAttribute('tabindex')) container.setAttribute('tabindex', '0');
+      if (!container.hasAttribute('role')) container.setAttribute('role', 'region');
+      if (!container.hasAttribute('aria-label')) container.setAttribute('aria-label', viewerText('viewer.camera.surface'));
+      syncPointerGesturePolicy();
       container.addEventListener('pointerdown', function (event) {
-        if (mobileScrollMode() || event.button !== 0 || cameraControlTarget(event.target) || cameraInteractiveTarget(event.target)) return;
+        var directPointerPan = (event.pointerType === 'touch' || event.pointerType === 'pen') && event.button === 0;
+        if (mobileScrollMode() || (event.button !== 2 && !directPointerPan) || cameraControlTarget(event.target)) return;
         event.preventDefault();
+        try { container.focus({ preventScroll: true }); } catch (_) { container.focus(); }
+        if (container.classList.contains('is-wheel-moving')) finishWheelGesture(true);
+        stopKeyboardPan();
         interruptCamera();
+        captureInteractionGeometry();
         drag = { startX: event.clientX, startY: event.clientY, x: state.x, y: state.y, moved: false };
         container.classList.add('is-panning');
         try { container.setPointerCapture(event.pointerId); } catch (_) {}
@@ -17130,28 +17336,81 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         if (Math.abs(dx) + Math.abs(dy) > 3) drag.moved = true;
         state.x = drag.x + dx;
         state.y = drag.y + dy;
-        apply();
+        scheduleInteractionApply(false);
       });
       container.addEventListener('pointerup', onPointerEnd);
       container.addEventListener('pointercancel', onPointerEnd);
+      container.addEventListener('contextmenu', function (event) {
+        if (Date.now() < suppressContextMenuUntil && !cameraControlTarget(event.target)) event.preventDefault();
+      });
       container.addEventListener('wheel', function (event) {
         if (mobileScrollMode() || cameraControlTarget(event.target)) return;
         event.preventDefault();
-        if (!container.classList.contains('is-wheel-panning')) interruptCamera('wheel');
-        container.classList.add('is-wheel-panning');
-        if (wheelTimer) clearTimeout(wheelTimer);
-        wheelTimer = setTimeout(function () {
-          wheelTimer = null;
-          container.classList.remove('is-wheel-panning');
-          if (Archify.focus && Archify.focus.reposition) Archify.focus.reposition();
-        }, 120);
-        if (event.ctrlKey || event.metaKey) {
-          zoomAt(state.scale * Math.exp(-event.deltaY * 0.002), event.clientX, event.clientY, { manual: false });
-          return;
+        try { container.focus({ preventScroll: true }); } catch (_) { container.focus(); }
+        var nextWheelMode = event.ctrlKey || event.metaKey ? 'zoom' : 'pan';
+        var startingWheel = !container.classList.contains('is-wheel-moving') || wheelMode !== nextWheelMode;
+        if (startingWheel) {
+          if (container.classList.contains('is-wheel-moving')) finishWheelGesture(true);
+          stopKeyboardPan();
+          interruptCameraWithoutRender('wheel');
+          var rect = captureInteractionGeometry();
+          wheelGeometry = {
+            left: rect.left + interactionMetrics.offsetLeft,
+            top: rect.top + interactionMetrics.offsetTop
+          };
+          wheelMode = nextWheelMode;
+          if (wheelMode === 'pan') {
+            wheelPanTarget = { x: state.x, y: state.y };
+            wheelPanTimestamp = 0;
+          }
         }
-        panBy(-event.deltaX, -event.deltaY, { manual: false });
+        container.classList.add('is-wheel-moving');
+        if (wheelTimer) clearTimeout(wheelTimer);
+        if (wheelMode === 'zoom') {
+          zoomAtLocal(state.scale * Math.exp(-event.deltaY * 0.002),
+            event.clientX - wheelGeometry.left, event.clientY - wheelGeometry.top,
+            { manual: false, defer: true });
+          wheelTimer = setTimeout(function () { finishWheelGesture(false); }, 120);
+        } else {
+          var deltaFactor = event.deltaMode === 1 ? 16 : (event.deltaMode === 2 ? container.clientHeight : 1);
+          wheelPanTarget.x = clampCameraCoordinate(wheelPanTarget.x - event.deltaX * deltaFactor);
+          wheelPanTarget.y = clampCameraCoordinate(wheelPanTarget.y - event.deltaY * deltaFactor);
+          wheelPanInputEnded = false;
+          scheduleWheelPan();
+          wheelTimer = setTimeout(function () {
+            wheelTimer = null;
+            wheelPanInputEnded = true;
+            scheduleWheelPan();
+          }, 80);
+        }
+        if (startingWheel && wheelMode === 'zoom') flushInteractionApply();
       }, { passive: false });
+      window.addEventListener('keydown', function (event) {
+        var activeTarget = document.activeElement;
+        if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey || mobileScrollMode() ||
+            drag || keyboardInputTarget(event.target) || activeTarget !== container || !diagramInViewport()) return;
+        if (!/^Arrow(Left|Right|Up|Down)$/.test(event.key)) return;
+        event.preventDefault();
+        keyboardDirections[event.key] = true;
+        keyboardShift = event.shiftKey;
+        startKeyboardPan();
+      });
+      window.addEventListener('keyup', function (event) {
+        if (event.key === 'Shift') keyboardShift = false;
+        if (!/^Arrow(Left|Right|Up|Down)$/.test(event.key)) return;
+        delete keyboardDirections[event.key];
+        keyboardShift = event.shiftKey;
+        if (!keyboardDirectionActive()) stopKeyboardPan();
+      });
+      window.addEventListener('blur', stopKeyboardPan);
       container.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('scroll', syncNavigationDock, { passive: true });
+      window.addEventListener('afterprint', function () {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(resetNavigationDockLatch);
+        });
+      });
+      if (window.ResizeObserver) new ResizeObserver(syncNavigationDock).observe(container);
       window.addEventListener('resize', function () {
         if (resizeFrame) cancelAnimationFrame(resizeFrame);
         resizeFrame = requestAnimationFrame(function () {
@@ -17163,6 +17422,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       window.addEventListener('hashchange', function () { requestAnimationFrame(syncSemantic); });
       apply();
       pinControls();
+      requestAnimationFrame(syncNavigationDock);
       requestAnimationFrame(syncSemantic);
 
       return {
